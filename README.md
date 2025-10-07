@@ -10,6 +10,31 @@ Tradesmen can create profiles showcasing their skills and qualifications.
 
 ## Planning
 - Wireframes
+## Wireframes
+
+Below are the initial wireframes created for TaskNest.
+
+### Home Page
+![Home Page Wireframe](static/wireframes/home-page.png)
+
+### Tradesman Profile Page
+![Profile Page Wireframe](static/wireframes/tradesman-profile.png)
+
+### Booking Page
+![Booking Page Wireframe](static/wireframes/bookings-page.png)
+
+### Login and Register Page
+![Login and Register Page Wireframe](static/wireframes/login-register-page.png)
+
+### Dashboard Page
+![Dashboard Page Wireframe](static/wireframes/dashboard.png)
+
+### Ad Listing Page
+![Ad Listing Page Wireframe](static/wireframes/ad-listings-page.png)
+
+### Review Page
+![Review Page Wireframe](static/wireframes/review-page.png)
+
 - ERD (Data Model)
 - Features
 
