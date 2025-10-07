@@ -36,6 +36,13 @@ Below are the initial wireframes created for TaskNest.
 ![Review Page Wireframe](static/wireframes/review-page.png)
 
 - ERD (Data Model)
+
+## Data Model (ERD)
+
+The following diagram shows the relationships between the main entities in TaskNest.
+
+![Entity Relationship Diagram](static/planning/tasknest-diagram.png)
+
 - Features
 
 ## Technologies Used
