@@ -1,0 +1,29 @@
+# TaskNest
+
+## Project Overview
+TaskNest is a full-stack web platform that connects customers with local tradesmen. 
+Customers can book services, leave reviews, and find trusted professionals. 
+Tradesmen can create profiles showcasing their skills and qualifications.
+
+## User Stories
+*(Add your user stories here)*
+
+## Planning
+- Wireframes
+- ERD (Data Model)
+- Features
+
+## Technologies Used
+- Python (Django)
+- HTML, CSS
+- PostgreSQL
+- GitHub, Heroku
+
+## Testing
+*(To be added later)*
+
+## Deployment
+*(To be added later)*
+
+## Credits
+*(To be added later)*
