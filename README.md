@@ -43,7 +43,55 @@ The following diagram shows the relationships between the main entities in TaskN
 
 ![Entity Relationship Diagram](static/planning/tasknest-diagram.png)
 
-- Features
+
+
+
+## Features
+
+TaskNest is designed to connect customers with skilled tradesmen for quick and reliable service bookings.  
+Below are the main features planned for development, separated into **MVP (Minimum Viable Product)** and **Stretch Goals**.
+
+---
+
+### Minimum Viable Product (MVP)
+
+| **Feature** | **Description** | **User Type** |
+|--------------|-----------------|----------------|
+| **User Authentication** | Users can register, log in, and log out securely using Django’s built-in auth system. | All Users |
+| **Profile Management** | Tradesmen can create and edit their profiles, including their skills, qualifications, and location. | Tradesmen |
+| **Service Listings** | Tradesmen can create, update, and delete job/service advertisements. | Tradesmen |
+| **Booking System** | Customers can view listings and book tradesmen directly. | Customers |
+| **Review and Rating System** | Customers can leave feedback and ratings on completed jobs. | Customers |
+| **Admin Dashboard** | Admin can manage users, listings, and reviews through Django’s admin panel. | Administrator |
+| **Responsive Design** | The site is mobile-friendly and works across different screen sizes. | All Users |
+
+---
+
+### Stretch Goals (Future Enhancements)
+
+| **Feature** | **Description** | **User Type** |
+|--------------|-----------------|----------------|
+| **Dashboard View** | Users can view all their active bookings, jobs, and reviews in one place. | All Users |
+| **Messaging System** | Allow customers and tradesmen to communicate directly through private messages. | All Users |
+| **Search and Filter Options** | Search for tradesmen by skill, price, or location. | Customers |
+| **Profile Badges** | Highlight top-rated tradesmen with achievement badges. | Tradesmen |
+| **Booking Notifications** | Email or in-site notifications when a booking is confirmed or reviewed. | All Users |
+
+---
+
+### 🧠 Summary
+
+The MVP focuses on delivering a functional platform where customers can:
+- Browse available tradesmen  
+- Book jobs easily  
+- Leave verified reviews  
+
+Tradesmen can:
+- Advertise their services  
+- Manage bookings and reviews  
+
+Future development will focus on improving communication, personalisation, and user experience.
+
 
 ## Technologies Used
 - Python (Django)
