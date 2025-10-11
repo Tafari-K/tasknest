@@ -103,7 +103,7 @@ Future development will focus on improving communication, personalisation, and u
 | **Issue** | **Cause** | **Fix** | **Status** | **Commit Message** |
 |-----------|-----------|---------|------------|---------------------|
 | `TemplateDoesNotExist: core/home.html` | Django couldn’t locate the template due to folder structure and missing template path in `settings.py` | Verified template location, added `core/templates` to `DIRS`, confirmed `INSTALLED_APPS` and `APP_DIRS` | Fixed | `fix: resolve template loading issue by correcting settings and folder structure` |
-
+| CSS not loading (`404` on `home.css`) | Incorrect file name in template (`home.css` instead of `style.css`) | Updated `{% static %}` path to match actual file name | Fixed | `fix: update static link for style.css` |
 ## Testing
 *(To be added later)*
 
