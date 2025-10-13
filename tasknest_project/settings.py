@@ -72,9 +72,21 @@ WSGI_APPLICATION = 'tasknest_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.parse('postgresql://neondb_owner:npg_VXReN7kFo2Jd@ep-curly-union-ag0w43zp.c-2.eu-central-1.aws.neon.tech/panda_scarf_seven_768747')
+
+from decouple import config
+import dj_database_url
+
+DATABASES = DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'panda_scarf_seven_768747',
+        'USER': 'neondb_owner',
+        'PASSWORD': 'npg_VXReN7kFo2Jd',
+        'HOST': 'ep-curly-union-ag0w43zp.c-2.eu-central-1.aws.neon.tech',
+        'PORT': '5432',
+    }
 }
+
 
 
 # Password validation
