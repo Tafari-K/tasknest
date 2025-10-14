@@ -51,6 +51,14 @@ The following diagram shows the relationships between the main entities in TaskN
 TaskNest is designed to connect customers with skilled tradesmen for quick and reliable service bookings.  
 Below are the main features planned for development, separated into **MVP (Minimum Viable Product)** and **Stretch Goals**.
 
+## Features
+
+- User authentication (register, login, logout)
+- Tradesmen can create and manage listings
+- Customers can book and leave feedback
+- Responsive design using Bootstrap
+- **Database:** SQLite (chosen for MVP simplicity and Django integration)
+
 ---
 
 ### Minimum Viable Product (MVP)
@@ -99,11 +107,15 @@ Future development will focus on improving communication, personalisation, and u
 - PostgreSQL
 - GitHub, Heroku
 
-## Known ISsuesn& Fixes
+## Known Issues & Fixes
 | **Issue** | **Cause** | **Fix** | **Status** | **Commit Message** |
 |-----------|-----------|---------|------------|---------------------|
 | `TemplateDoesNotExist: core/home.html` | Django couldn’t locate the template due to folder structure and missing template path in `settings.py` | Verified template location, added `core/templates` to `DIRS`, confirmed `INSTALLED_APPS` and `APP_DIRS` | Fixed | `fix: resolve template loading issue by correcting settings and folder structure` |
 | CSS not loading (`404` on `home.css`) | Incorrect file name in template (`home.css` instead of `style.css`) | Updated `{% static %}` path to match actual file name | Fixed | `fix: update static link for style.css` |
+|PostgreSQL connection failure during database setup. Django could not establish a connection due to “System Error 1067: The process terminated unexpectedly.”| PostgreSQL service could not start due to Windows permission conflicts in the Program Files directory and uninitialized data folder.| Switched the project database from PostgreSQL to SQLite by updating settings.py to use Django’s built-in sqlite3 engine. This ensured smooth local development with no external dependencies.| Resolved — Database running successfully using SQLite. All migrations applied and server running as expected.| fix: replaced PostgreSQL config with SQLite setup to stabilize database connection during local development|
+
+
+
 ## Testing
 *(To be added later)*
 
