@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
+
+{% block title %}Jobs | TaskNest{% endblock %}
+
 {% block content %}
-<h1>Page Title</h1>
-<p>Content goes here.</p>
+  <h1 class="mb-4">Job Listings</h1>
+  <ul class="list-group">
+    {% for job in jobs %}
+      <li class="list-group-item">
+        <strong>{{ job.title }}</strong><br>
+        {{ job.description }}
+      </li>
+    {% empty %}
+      <li class="list-group-item">No jobs posted yet.</li>
+    {% endfor %}
+  </ul>
 {% endblock %}
