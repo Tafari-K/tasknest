@@ -11,6 +11,10 @@ body {
     padding: 60px;
 }
 
+body::before {
+    filter: blur(6px) brightness(0.7);
+}
+
 h1 {
     color: white;
     font-size: 3.5em;
