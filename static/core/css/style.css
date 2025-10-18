@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: white;
     background-image: url(/static/images/tasknest_background_edited.png);
     background-repeat: no-repeat;
@@ -19,7 +19,7 @@ h1 {
     color: white;
     font-size: 3.5em;
     font-weight: 800;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* soft glow */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); 
     margin-bottom: 20px;
 }
 
@@ -34,24 +34,54 @@ p {
     display: inline-block;
 }
 
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 600px;
+    background-color: rgba(45, 106, 79, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1em;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 
 .button {
     display: inline-block;
     margin-top: 20px;
-    padding: 16px 32px; /* bigger button */
+    padding: 16px 32px; 
     background-color: #2d6a4f;
     color: white;
     text-decoration: none;
     border-radius: 8px;
     font-weight: bold;
     font-size: 1.2em;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 3D effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .button:hover {
-    background-color: #1b4332; /* green hover */
-    transform: translateY(-2px); /* subtle lift */
+    background-color: #1b4332; 
+    transform: translateY(-2px);
 }
 
 .container {

@@ -7,6 +7,7 @@ class JobForm(forms.ModelForm):
         model = Job
         fields = ['title', 'description']
 
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
