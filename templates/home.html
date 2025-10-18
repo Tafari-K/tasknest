@@ -2,11 +2,10 @@
 {% load static %}
 
 {% block content %}
-<h1>Welcome to TaskNest</h1>
 <div class="text-center">
     <h1 class="display-4">Welcome to TaskNest</h1>
-    <p class="lead mt-3">Connecting customers with trusted tradesmen for every task.</p>
-    <a href="#" class="btn btn-primary mt-4">Get Started</a>
+    <p class="lead mt-3">Connecting people with trusted tradesmen for every task.</p>
+    <a href="{% url 'signup' %}" class="btn btn-primary mt-4">New User</a>
     <a href="{% url 'login' %}" class="btn btn-outline-light">Log In</a>
 </div>
 {% endblock %}

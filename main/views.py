@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Job
 from .forms import JobForm
+from django.contrib.auth.forms import UserCreationForm
 
 
 def home(request):
@@ -29,3 +30,14 @@ def delete_job(request, job_id):
         job.delete()
         return redirect('jobs')
     return render(request, 'delete_job.html', {'job': job})
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
