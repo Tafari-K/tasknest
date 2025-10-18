@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
 <h1>Page Title</h1>
+<div class="avatar" style="background-color: {{ profile.avatar_color }};"></div>
+
 <p>Content goes here.</p>
 {% endblock %}

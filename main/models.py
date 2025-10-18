@@ -23,7 +23,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=100, blank=True, null=True)
     skills = models.TextField(blank=True, null=True)
     qualification = models.CharField(max_length=100, blank=True, null=True)
-    profile_image = models.ImageField(upload_to='profiles/', blank=True, null=True)
+    avatar_color = models.CharField(max_length=20, default='blue')
 
     def __str__(self):
         return f"{self.user.username} ({self.role})"
