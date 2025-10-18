@@ -2,8 +2,12 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+
+<div class="title-box">
     <h1 class="display-4">Welcome to TaskNest</h1>
+</div>
+<div class="container">
     <p class="lead mt-3">Connecting people with trusted tradesmen for every task.</p>
     <a href="{% url 'signup' %}" class="button">New User</a>
     <a href="{% url 'login' %}" class="button">Log In</a>

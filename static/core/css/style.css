@@ -1,36 +1,58 @@
 body {
     font-family: Arial, sans-serif;
     background-color: white;
-    color: white;
+    background-image: url(/static/images/tasknest_background_edited.png);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: fixed;
+    background-size: contain;
+    color: black;
     text-align: center;
     padding: 60px;
 }
 
 h1 {
-    color: #2d6a4f;
-    font-size: 3em;
+    color: white;
+    font-size: 3.5em;
+    font-weight: 800;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* soft glow */
+    margin-bottom: 20px;
 }
 
 p {
     font-size: 1.2em;
 }
 
+.title-box {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+
 .button {
     display: inline-block;
     margin-top: 20px;
-    padding: 12px 25px;
+    padding: 16px 32px; /* bigger button */
     background-color: #2d6a4f;
     color: white;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    font-size: 1.2em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 3D effect */
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .button:hover {
-    background-color: #1b4332;
+    background-color: #1b4332; /* green hover */
+    transform: translateY(-2px); /* subtle lift */
 }
+
 .container {
     max-width: 600px;
     margin: 0 auto;
+    border-radius: 8px;
+    padding: 30px;
 }
