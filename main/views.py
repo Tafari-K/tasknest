@@ -1,8 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from .forms import CustomUserCreationForm
+from django.contrib.auth.decorators import login_required
 from .models import Job
 from .forms import JobForm
-from .forms import CustomUserCreationForm
 
+
+def signup(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('dashboard')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
 
 def home(request):
     return render(request, 'home.html')
@@ -32,12 +48,4 @@ def delete_job(request, job_id):
     return render(request, 'delete_job.html', {'job': job})
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})
+

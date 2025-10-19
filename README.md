@@ -114,7 +114,7 @@ Future development will focus on improving communication, personalisation, and u
 | CSS not loading (`404` on `home.css`) | Incorrect file name in template (`home.css` instead of `style.css`) | Updated `{% static %}` path to match actual file name | Fixed | `fix: update static link for style.css` |
 |PostgreSQL connection failure during database setup. Django could not establish a connection due to “System Error 1067: The process terminated unexpectedly.”| PostgreSQL service could not start due to Windows permission conflicts in the Program Files directory and uninitialized data folder.| Switched the project database from PostgreSQL to SQLite by updating settings.py to use Django’s built-in sqlite3 engine. This ensured smooth local development with no external dependencies.| Resolved — Database running successfully using SQLite. All migrations applied and server running as expected.| fix: replaced PostgreSQL config with SQLite setup to stabilize database connection during local development|
 | Page rendering blank despite correct template path | incorrect imprt syntax: from django.shortcuts import reder was mistyped as 'from django.shortcuts impport import render' |  Corrected the import statement in views.py to porperly load the render function | fixed | Fix: amend render request|
-
+| Page not rendering after logic for signup | corrected statement| fixed| refactor: update class, update appropriate py files|
 
 ## Testing
 *(To be added later)*
