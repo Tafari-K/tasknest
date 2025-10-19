@@ -4,13 +4,13 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Job, Profile
 
 
-class CustomerCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True, help_text='Required. Enter a valid email address.')
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True, help_text='Required.')
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-        
+
 
 class JobForm(forms.ModelForm):
     class Meta:
