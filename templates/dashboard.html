@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+    <h2>Welcome, {{ user.username }}!</h2>
+    <p>You’re now logged in to your TaskNest dashboard.</p>
+
+    {% if user.profile.role == 'tradesman' %}
+        <p>Your role: <strong>Tradesman</strong></p>
+        <p>Here you can post or manage jobs you’ve completed.</p>
+    {% elif user.profile.role == 'customer' %}
+        <p>Your role: <strong>Customer</strong></p>
+        <p>Here you can browse tradesmen and leave reviews.</p>
+    {% else %}
+        <p>You haven’t selected a role yet. <a href="#">Update your profile</a></p>
+    {% endif %}
+</div>
+{% endblock %}

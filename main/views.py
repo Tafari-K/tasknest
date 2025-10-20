@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Job
@@ -16,9 +17,11 @@ def signup(request):
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+
 @login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
+
 
 def home(request):
     return render(request, 'home.html')
@@ -46,6 +49,3 @@ def delete_job(request, job_id):
         job.delete()
         return redirect('jobs')
     return render(request, 'delete_job.html', {'job': job})
-
-
-
