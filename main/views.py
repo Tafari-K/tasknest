@@ -20,7 +20,9 @@ def signup(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    profile = request.user.profile
+    context = {'profile': profile}
+    return render(request, 'dashboard.html', context)
 
 
 def home(request):
