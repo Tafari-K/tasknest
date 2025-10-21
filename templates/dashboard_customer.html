@@ -1,9 +1,17 @@
-{% extends 'base.html' %}
-{% block content %}
-<div class="container mt-4">
-  <h2>Welcome, {{ profile.user.username }} (Customer)</h2>
-  <p>Location: {{ profile.location }}</p>
+<!-- Jobs completed summary -->
+<p><strong>Jobs Completed:</strong> {{ profile.jobs_completed }}</p>
 
-  <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
-</div>
-{% endblock %}
+<!-- Completed Jobs -->
+<h3 class="mt-5">Completed Jobs</h3>
+{% if completed_jobs %}
+  <ul>
+    {% for job in completed_jobs %}
+      <li>
+        <strong>{{ job.title }}</strong> - {{ job.description }}
+        <span class="text-success">(Completed)</span>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No completed jobs yet.</p>
+{% endif %}

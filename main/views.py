@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Job
 from .forms import JobForm
 from .forms import ProfileForm
-
+from .forms import JobForm
+from .models import Job
 
 def signup(request):
     if request.method == 'POST':
@@ -37,11 +38,14 @@ def dashboard(request):
     profile = request.user.profile
     context = {'profile': profile}
     return render(request, 'dashboard.html', context)
+    active_jobs = profile.job_set.filter(is_completed=False)
+    completed_jobs = profile.job_set.filter(is_completed=True)
 
-
-@login_required
-def dashboard(request):
-    profile = request.user.profile
+    context = {
+        'profile': profile,
+        'active_jobs': active_jobs,
+        'completed_jobs': completed_jobs,
+    }
 
     if profile.role == 'tradesman':
         template = 'dashboard_tradesman.html'
@@ -50,8 +54,7 @@ def dashboard(request):
 
     return render(request, template, {'profile': profile})
 
-from .forms import JobForm
-from .models import Job
+
 
 @login_required
 def add_job(request):
@@ -100,3 +103,11 @@ def delete_job(request, job_id):
         job.delete()
         return redirect('jobs')
     return render(request, 'delete_job.html', {'job': job})
+
+@login_required
+def mark_job_complete(request, job_id):
+    job = Job.objects.get(id=job_id, profile=request.user.profile)
+    job.is_completed = True
+    job.save()
+    return redirect('dashboard')
+

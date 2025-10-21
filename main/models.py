@@ -26,5 +26,12 @@ class Profile(models.Model):
     qualification = models.CharField(max_length=100, blank=True, null=True)
     avatar_color = models.CharField(max_length=20, default='blue')
 
+
     def __str__(self):
         return f"{self.user.username} ({self.role})"
+    @property
+
+    
+    def jobs_completed(self):
+        return self.job_set.filter(is_completed=True).count()
+

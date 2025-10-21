@@ -2,22 +2,45 @@
 {% block content %}
 <div class="container mt-4">
   <h2>Welcome, {{ profile.user.username }} (Tradesman)</h2>
-  <p>Location: {{ profile.location }}</p>
-  <p>Skills: {{ profile.skills }}</p>
+  <p><strong>Location:</strong> {{ profile.location }}</p>
+  <p><strong>Skills:</strong> {{ profile.skills }}</p>
 
-  <h3 class="mt-4">Your Jobs</h3>
-  {% if profile.job_set.all %}
-    <ul>
-      {% for job in profile.job_set.all %}
-        <li>
-          <strong>{{ job.title }}</strong> - {{ job.description }}
-          <a href="{% url 'remove_job' job.id %}" class="btn btn-danger btn-sm ms-2">Remove</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>You haven't added any jobs yet.</p>
-  {% endif %}
+<-- jobs completed number -->
+  <p><strong>Jobs Completed:</strong> {{ profile.jobs_completed }}</p>
+
+<--active jobs --> 
+  <h3 class="mt-4">Active Jobs</h3>
+    {% if active_jobs %}
+      <ul>
+        {% for job in active_jobs %}
+          <li>
+            <strong>{{ job.title }}</strong> - {{ job.description }}
+            <a href="{% url 'mark_job_complete' job.id %}" class="btn btn-warning btn-sm">Mark Complete</a>
+            <a href="{% url 'remove_job' job.id %}" class="btn btn-danger btn-sm ms-2">Remove</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>You have no active jobs.</p>
+    {% endif %}
+  {% endwith %}
+
+  <-- completed jobs -->
+  <h3 class="mt-5">Completed Jobs</h3>
+  {% with completed_jobs=profile.job_set.filter(is_completed=True) %}
+    {% if completed_jobs %}
+      <ul>
+        {% for job in completed_jobs %}
+          <li>
+            <strong>{{ job.title }}</strong> - {{ job.description }}
+            <span class="text-success">(Completed)</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No completed jobs yet.</p>
+    {% endif %}
+  {% endwith %}
 
   <a href="{% url 'add_job' %}" class="btn btn-success mt-3">Add Job</a>
   <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary mt-3">Edit Profile</a>
