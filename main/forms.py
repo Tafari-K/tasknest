@@ -12,13 +12,19 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['role']
+        fields = ['location', 'skills', 'qualification']
+        widgets = {
+            'skills': forms.Textarea(attrs={'rows': 3}),
+        }
+               
+
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = ['title', 'description']
 
 
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['role']

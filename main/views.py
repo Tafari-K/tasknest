@@ -4,6 +4,7 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Job
 from .forms import JobForm
+from .forms import ProfileForm
 
 
 def signup(request):
@@ -16,6 +17,18 @@ def signup(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+@login_required
+def edit_profile(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, 'edit_profile.html', {'form': form})
 
 
 @login_required
