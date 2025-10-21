@@ -50,6 +50,29 @@ def dashboard(request):
 
     return render(request, template, {'profile': profile})
 
+from .forms import JobForm
+from .models import Job
+
+@login_required
+def add_job(request):
+    if request.method == 'POST':
+        form = JobForm(request.POST)
+        if form.is_valid():
+            job = form.save(commit=False)
+            job.profile = request.user.profile
+            job.save()
+            return redirect('dashboard')
+    else:
+        form = JobForm()
+    return render(request, 'add_job.html', {'form': form})
+
+
+@login_required
+def remove_job(request, job_id):
+    job = Job.objects.get(id=job_id, profile=request.user.profile)
+    job.delete()
+    return redirect('dashboard')
+
 
 def home(request):
     return render(request, 'home.html')

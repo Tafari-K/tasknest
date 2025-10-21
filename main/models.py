@@ -4,13 +4,14 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Job(models.Model):
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
-    posted_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
-    from django.contrib.auth.models import User
 
 
 class Profile(models.Model):

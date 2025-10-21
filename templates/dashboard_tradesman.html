@@ -4,8 +4,22 @@
   <h2>Welcome, {{ profile.user.username }} (Tradesman)</h2>
   <p>Location: {{ profile.location }}</p>
   <p>Skills: {{ profile.skills }}</p>
-  <p>Qualification: {{ profile.qualification }}</p>
 
-  <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+  <h3 class="mt-4">Your Jobs</h3>
+  {% if profile.job_set.all %}
+    <ul>
+      {% for job in profile.job_set.all %}
+        <li>
+          <strong>{{ job.title }}</strong> - {{ job.description }}
+          <a href="{% url 'remove_job' job.id %}" class="btn btn-danger btn-sm ms-2">Remove</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You haven't added any jobs yet.</p>
+  {% endif %}
+
+  <a href="{% url 'add_job' %}" class="btn btn-success mt-3">Add Job</a>
+  <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary mt-3">Edit Profile</a>
 </div>
 {% endblock %}
