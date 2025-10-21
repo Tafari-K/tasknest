@@ -18,6 +18,7 @@ def signup(request):
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+
 @login_required
 def edit_profile(request):
     profile = request.user.profile
@@ -36,6 +37,18 @@ def dashboard(request):
     profile = request.user.profile
     context = {'profile': profile}
     return render(request, 'dashboard.html', context)
+
+
+@login_required
+def dashboard(request):
+    profile = request.user.profile
+
+    if profile.role == 'tradesman':
+        template = 'dashboard_tradesman.html'
+    else:
+        template = 'dashboard_customer.html'
+
+    return render(request, template, {'profile': profile})
 
 
 def home(request):

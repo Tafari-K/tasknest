@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Welcome, {{ profile.user.username }} (Tradesman)</h2>
+  <p>Location: {{ profile.location }}</p>
+  <p>Skills: {{ profile.skills }}</p>
+  <p>Qualification: {{ profile.qualification }}</p>
+
+  <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+</div>
+{% endblock %}
