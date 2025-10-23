@@ -36,8 +36,7 @@ def edit_profile(request):
 @login_required
 def dashboard(request):
     profile = request.user.profile
-    context = {'profile': profile}
-    return render(request, 'dashboard.html', context)
+
     active_jobs = profile.job_set.filter(is_completed=False)
     completed_jobs = profile.job_set.filter(is_completed=True)
 
@@ -45,15 +44,17 @@ def dashboard(request):
         'profile': profile,
         'active_jobs': active_jobs,
         'completed_jobs': completed_jobs,
+        'active_jobs_count': active_jobs.count(),
+        'completed_jobs_count': completed_jobs.count(),
+        'reviews' : [],  # Placeholder for reviews
     }
 
     if profile.role == 'tradesman':
-        template = 'dashboard_tradesman.html'
+        return render(request, 'dashboard_tradesman.html', context)
+    elif profile.role == 'customer':
+        return render(request, 'dashboard_customer.html', context)
     else:
-        template = 'dashboard_customer.html'
-
-    return render(request, template, {'profile': profile})
-
+        return render(request, 'dashboard.html', context)
 
 
 @login_required
