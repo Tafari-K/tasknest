@@ -29,9 +29,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} ({self.role})"
-    @property
 
-    
+    @property
     def jobs_completed(self):
         return self.job_set.filter(is_completed=True).count()
-

@@ -9,6 +9,8 @@
         <p>You can create and manage jobs here.</p>
         <ul style="list-style:none;">
             <li><a href="{% url 'add_job' %}">Add New Job</a></li>
+            
+            <p><strong>Jobs Completed:</strong> {{ profile.jobs_completed }}</p>
             <li><a href="#">View Customer Reviews</a></li>
             <a href="{% url 'edit_profile' %}">Edit Profile</a>
         </ul>

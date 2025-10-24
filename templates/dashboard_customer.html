@@ -1,17 +1,96 @@
-<!-- Jobs completed summary -->
-<p><strong>Jobs Completed:</strong> {{ profile.jobs_completed }}</p>
+{% extends 'base.html' %}
+{% load static %}
 
-<!-- Completed Jobs -->
-<h3 class="mt-5">Completed Jobs</h3>
-{% if completed_jobs %}
-  <ul>
-    {% for job in completed_jobs %}
-      <li>
-        <strong>{{ job.title }}</strong> - {{ job.description }}
-        <span class="text-success">(Completed)</span>
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No completed jobs yet.</p>
-{% endif %}
+{% block content %}
+<div class="container py-5">
+
+  <!-- PROFILE SECTION -->
+  <div class="text-center mb-4">
+    <img src="{% static 'core/images/default_avatar.png' %}" 
+         alt="Avatar" class="rounded-circle mb-2" width="120" height="120">
+    <h2>{{ profile.user.username }}</h2>
+    <p class="text-muted">Customer Account</p>
+    <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary">Edit Profile</a>
+  </div>
+
+  <!-- JOB STATS SECTION -->
+  <div class="row text-center mb-5">
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3">
+        <h5>Jobs Posted</h5>
+        <p class="fw-bold fs-4 text-primary">{{ posted_jobs_count }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3">
+        <h5>Jobs Completed</h5>
+        <p class="fw-bold fs-4 text-success">{{ completed_jobs_count }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3">
+        <h5>Pending Jobs</h5>
+        <p class="fw-bold fs-4 text-warning">{{ pending_jobs_count }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOB MANAGEMENT -->
+  <div class="card mb-5">
+    <div class="card-header bg-primary text-white">
+      My Job Requests
+    </div>
+    <div class="card-body">
+      {% if posted_jobs %}
+        <ul class="list-group">
+          {% for job in posted_jobs %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <strong>{{ job.title }}</strong> - {{ job.description }}
+                {% if job.is_completed %}
+                  <span class="badge bg-success ms-2">Completed</span>
+                {% else %}
+                  <span class="badge bg-warning text-dark ms-2">Pending</span>
+                {% endif %}
+              </div>
+              <div>
+                {% if not job.is_completed %}
+                  <a href="{% url 'remove_job' job.id %}" class="btn btn-danger btn-sm">Cancel</a>
+                {% else %}
+                  <a href="{% url 'add_review' job.id %}" class="btn btn-outline-success btn-sm">Give Review</a>
+                {% endif %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-muted">You haven't posted any jobs yet.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- REVIEWS RECEIVED -->
+  <div class="card mb-5">
+    <div class="card-header bg-dark text-white">
+      Reviews From Tradesmen
+    </div>
+    <div class="card-body">
+      {% if received_reviews %}
+        {% for review in received_reviews %}
+          <p><strong>{{ review.tradesman.username }}</strong> – ⭐ {{ review.rating }}/5</p>
+          <p>{{ review.comment }}</p>
+          <hr>
+        {% endfor %}
+      {% else %}
+        <p class="text-muted">No reviews received yet.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- POST NEW JOB BUTTON -->
+  <div class="text-center">
+    <a href="{% url 'create_job' %}" class="btn btn-primary">Post a New Job</a>
+  </div>
+
+</div>
+{% endblock %}
