@@ -1,17 +1,13 @@
 {% extends 'base.html' %}
-
-{% block title %}Jobs | TaskNest{% endblock %}
-
 {% block content %}
-  <h1 class="mb-4">Job Listings</h1>
-  <ul class="list-group">
+<div class="container py-5">
+  <h2>Available Jobs</h2>
+  <ul class="list-group mt-4">
     {% for job in jobs %}
-      <li class="list-group-item">
-        <strong>{{ job.title }}</strong><br>
-        {{ job.description }}
-      </li>
+      <li class="list-group-item">{{ job.title }} – {{ job.description }}</li>
     {% empty %}
-      <li class="list-group-item">No jobs posted yet.</li>
+      <li class="list-group-item text-muted">No jobs available.</li>
     {% endfor %}
   </ul>
+</div>
 {% endblock %}

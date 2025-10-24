@@ -1,4 +1,3 @@
-# main/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -15,9 +14,15 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('dashboard')
+            profile = user.profile
+
+            if profile.role == 'customer':
+                return redirect('customer_dashboard')
+            else:
+                return redirect('dashboard')
     else:
         form = CustomUserCreationForm()
+
     return render(request, 'registration/signup.html', {'form': form})
 
 
@@ -46,11 +51,9 @@ def edit_profile(request):
 def dashboard(request):
     """Decides which dashboard to render based on user role."""
     profile = request.user.profile
-
     if profile.role == 'tradesman':
         active_jobs = profile.job_set.filter(is_completed=False)
         completed_jobs = profile.job_set.filter(is_completed=True)
-
         context = {
             'profile': profile,
             'active_jobs': active_jobs,
@@ -60,10 +63,8 @@ def dashboard(request):
             'reviews': [],
         }
         return render(request, 'dashboard_tradesman.html', context)
-
     elif profile.role == 'customer':
         return redirect('customer_dashboard')
-
     else:
         return render(request, 'dashboard.html', {'profile': profile})
 
@@ -91,26 +92,31 @@ def customer_dashboard(request):
 # ===============================
 # JOB MANAGEMENT
 # ===============================
+def jobs_view(request):
+    jobs = Job.objects.all()
+    return render(request, 'jobs.html', {'jobs': jobs})
 
 @login_required
-def add_job(request):
+def create_job(request):
     if request.method == 'POST':
         form = JobForm(request.POST)
         if form.is_valid():
             job = form.save(commit=False)
             job.profile = request.user.profile
             job.save()
-            return redirect('dashboard')
+            return redirect('customer_dashboard')
     else:
         form = JobForm()
-    return render(request, 'add_job.html', {'form': form})
+    return render(request, 'create_job.html', {'form': form})
 
 
 @login_required
-def remove_job(request, job_id):
+def delete_job(request, job_id):
     job = get_object_or_404(Job, id=job_id, profile=request.user.profile)
-    job.delete()
-    return redirect('dashboard')
+    if request.method == 'POST':
+        job.delete()
+        return redirect('customer_dashboard')
+    return render(request, 'delete_job.html', {'job': job})
 
 
 @login_required
@@ -119,16 +125,6 @@ def mark_job_complete(request, job_id):
     job.is_completed = True
     job.save()
     return redirect('dashboard')
-
-
-# ===============================
-# REVIEW PLACEHOLDER
-# ===============================
-
-@login_required
-def add_review(request, job_id):
-    """Placeholder for the review feature."""
-    return render(request, 'add_review.html', {'job_id': job_id})
 
 
 # ===============================
