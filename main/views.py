@@ -86,10 +86,15 @@ def dashboard(request):
         return render(request, 'dashboard.html', {'profile': profile})
 
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
 @login_required
 def customer_dashboard(request):
     """Dashboard view for customers."""
     profile = request.user.profile
+
+    # Get all jobs linked to this customer's profile
     posted_jobs = profile.job_set.all()
     completed_jobs = posted_jobs.filter(is_completed=True)
     pending_jobs = posted_jobs.filter(is_completed=False)
