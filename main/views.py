@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from .models import Job
+from .models import Job, Profile
 from .forms import CustomUserCreationForm, ProfileForm, JobForm
 
 # ===============================
@@ -9,6 +9,23 @@ from .forms import CustomUserCreationForm, ProfileForm, JobForm
 # ===============================
 
 def signup(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            Profile.objects.get_or_create(user=user)
+            login(request, user)
+            profile = user.profile
+
+            # Redirect based on role
+            if profile.role == 'customer':
+                return redirect('customer_dashboard')
+            else:
+                return redirect('dashboard')
+    else:
+        form = CustomUserCreationForm()
+
+    return render(request, 'registration/signup.html', {'form': form})
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
