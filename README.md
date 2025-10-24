@@ -43,7 +43,13 @@ The following diagram shows the relationships between the main entities in TaskN
 
 ![Entity Relationship Diagram](static/planning/tasknest-diagram.png)
 
+## Project Development Board
 
+You can track the ongoing development, tasks, and progress for **TaskNest** on the official GitHub Project Board below:
+
+[View TaskNest Project Board](https://github.com/<your-username>/<your-repo>/projects)
+
+The board outlines all current tasks, upcoming features, and completed milestones.
 
 
 ## Features
@@ -121,12 +127,14 @@ Future development will focus on improving communication, personalisation, and u
 |Profile not updating after form submission | Missing instance=profile in form save logic | Added instance binding to form in view | Fixed | feat: implemented profile editing feature with user validation |
 | Users could access edit page without login | Missing @login_required decorator | Added login protection to edit_profile view | Fixed | feat: finish authentication system, update login logic, update appropriate templates and files |
 | Add/Remove Job pages initially not rendering | Missing templates and URL routes | Created add_job.html and updated URLs in main/urls.py | Fixed | feat: implemented add/remove job functionality |
+| Profile section missing details on dashbaord | Profile model fields not displaced in dashboard template | Added avatar, username, role, location, skills, and job stats display | Fixed  | Added profile info section with avatar, role, and job stats to dashboard; verified dashboard renders correctly |
 
 ## Testing
 *(To be added later)*
 
 ## Deployment
 *(To be added later)*
-
+project board link:
+https://github.com/users/Tafari-K/projects/6/views/1
 ## Credits
 *(To be added later)*
