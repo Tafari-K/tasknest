@@ -112,3 +112,9 @@ def mark_job_complete(request, job_id):
     job.save()
     return redirect('dashboard')
 
+
+@login_required
+def add_review(request, job_id):
+    # Placeholder for now — will be expanded later
+    return render(request, 'add_review.html', {'job_id': job_id})
+
