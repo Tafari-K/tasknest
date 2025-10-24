@@ -8,24 +8,29 @@ from .forms import CustomUserCreationForm, ProfileForm, JobForm
 # AUTHENTICATION VIEWS
 # ===============================
 
+from .models import Profile
+
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            Profile.objects.get_or_create(user=user)
+            # Ensure profile exists
+            profile, created = Profile.objects.get_or_create(user=user)
             login(request, user)
-            profile = user.profile
 
-            # Redirect based on role
+            # Redirect to the correct dashboard
             if profile.role == 'customer':
                 return redirect('customer_dashboard')
-            else:
+            elif profile.role == 'tradesman':
                 return redirect('dashboard')
+            else:
+                return redirect('home')
     else:
         form = CustomUserCreationForm()
 
     return render(request, 'registration/signup.html', {'form': form})
+
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
