@@ -141,3 +141,43 @@ textarea {
     color: #f97316;
     transition: color 0.3s ease;
 }
+
+@media (max-width: 576px) {
+  body {
+    padding: 20px;
+    background-position: top center;
+    background-size: cover;
+    text-align: center;
+  }
+
+  .title-box {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.5em;
+  }
+
+  .container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .button {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 1em;
+  }
+
+  .testimonial-card {
+    padding: 15px;
+    font-size: 0.95em;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  p.lead {
+    font-size: 1em;
+  }
+}
+
