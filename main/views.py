@@ -8,24 +8,21 @@ from .forms import CustomUserCreationForm, ProfileForm, JobForm
 # AUTHENTICATION VIEWS
 # ===============================
 
-from .models import Profile
 
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Ensure profile exists
-            profile, created = Profile.objects.get_or_create(user=user)
             login(request, user)
 
-            # Redirect to the correct dashboard
+            # The profile will be automatically created by the signal
+            profile = user.profile  # Access it safely (it now exists)
+
             if profile.role == 'customer':
                 return redirect('customer_dashboard')
-            elif profile.role == 'tradesman':
-                return redirect('dashboard')
             else:
-                return redirect('home')
+                return redirect('dashboard')
     else:
         form = CustomUserCreationForm()
 
@@ -36,7 +33,6 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            profile = user.profile
 
             if profile.role == 'customer':
                 return redirect('customer_dashboard')
@@ -154,9 +150,14 @@ def mark_job_complete(request, job_id):
     return redirect('dashboard')
 
 
+@login_required
+def add_review(request, job_id):
+    """Placeholder for review functionality"""
+    return render(request, 'add_review.html', {'job_id': job_id})
 # ===============================
 # STATIC/HOME VIEWS
 # ===============================
+
 
 def home(request):
     return render(request, 'home.html')
