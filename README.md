@@ -130,7 +130,8 @@ Future development will focus on improving communication, personalisation, and u
 | Profile section missing details on dashbaord | Profile model fields not displaced in dashboard template | Added avatar, username, role, location, skills, and job stats display | Fixed  | Added profile info section with avatar, role, and job stats to dashboard; verified dashboard renders correctly |
 | Needed realistic test data for development and testing | Empty database made it difficult to test CRUD functionality and user dashboards | Created Django management command `seed_profiles` to populate database with 3 tradesman and 3 customer profiles with realistic data | Fixed | feat: add seed_profiles management command for test data |
 | Missing URL routes for add_job, remove_job, and add_review | Template references didn't match URL patterns | Added URL aliases and placeholder view for review functionality | Fixed | feat: add seed_profiles management command for test data |
-
+| No logout functionality visible to users | Logout route existed but no UI button in navigation | Added logout button to navbar with authentication check, updated logout redirect to home page | Fixed | feat: add logout button and active jobs preview page |
+| Jobs page had minimal information display | Basic list view didn't show enough job details for users to make decisions | Redesigned jobs page with card layout, status badges, poster info, location, and interactive elements | Fixed | feat: add logout button and active jobs preview page |
 
 ## Testing
 *(To be added later)*
