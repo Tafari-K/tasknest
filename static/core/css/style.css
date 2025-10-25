@@ -100,3 +100,44 @@ textarea {
     border: 3px solid #fff;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
+
+
+.testimonial-section {
+    background-color: rgba(45, 106, 79, 0.1);
+    border-radius: 12px;
+    padding: 40px 20px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2em;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #2d6a4f;
+}
+
+.testimonial-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.testimonial-text {
+    font-style: italic;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.testimonial-author {
+    font-weight: bold;
+    color: #1b4332;
+}
+
+.navbar-dark .nav-link:hover {
+    color: #f97316;
+    transition: color 0.3s ease;
+}
