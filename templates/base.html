@@ -12,7 +12,7 @@
         rel="stylesheet"
     >
 
-    <!-- Your Custom CSS -->
+    <!-- CSS -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 
@@ -29,8 +29,23 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'jobs' %}">Jobs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'create_job' %}">Add Job</a></li>
+                    
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'jobs' %}">Browse Jobs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+                        <li class="nav-item">
+                            <span class="nav-link text-light">Welcome, {{ user.username }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <form method="POST" action="{% url 'logout' %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-light btn-sm ms-2">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
