@@ -1,11 +1,50 @@
 {% extends 'base.html' %}
 {% block title %}Delete Job | TaskNest{% endblock %}
+
 {% block content %}
-  <h2>Delete Job</h2>
-  <p>Are you sure you want to delete "{{ job.title }}"?</p>
-  <form method="POST">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Delete</button>
-    <a href="{% url 'jobs' %}" class="btn btn-secondary">Cancel</a>
-  </form>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow border-danger">
+        <div class="card-header bg-danger text-white">
+          <h3 class="mb-0">
+            <i class="fas fa-exclamation-triangle"></i> Confirm Deletion
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-warning" role="alert">
+            <i class="fas fa-info-circle"></i> <strong>Warning:</strong> This action cannot be undone.
+          </div>
+
+          <div class="mb-4 p-3 bg-light rounded">
+            <h5 class="mb-3">Job Details:</h5>
+            <p class="mb-2"><strong><i class="fas fa-briefcase"></i> Title:</strong> {{ job.title }}</p>
+            <p class="mb-2"><strong><i class="fas fa-align-left"></i> Description:</strong> {{ job.description }}</p>
+            <p class="mb-2">
+              <strong><i class="fas fa-circle"></i> Status:</strong> 
+              {% if job.is_completed %}
+                <span class="badge bg-success">Completed</span>
+              {% else %}
+                <span class="badge bg-warning text-dark">Active</span>
+              {% endif %}
+            </p>
+            <p class="mb-0"><strong><i class="far fa-calendar"></i> Posted:</strong> {{ job.created_at|date:"d M Y" }}</p>
+          </div>
+
+          <p class="text-center mb-4">Are you sure you want to delete this job?</p>
+
+          <form method="POST" class="d-flex justify-content-center gap-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+              <i class="fas fa-trash"></i> Yes, Delete Job
+            </button>
+            <a href="{% url 'dashboard' %}" class="btn btn-secondary">
+              <i class="fas fa-times"></i> Cancel
+            </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
