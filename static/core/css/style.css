@@ -1,18 +1,22 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: white;
-    background-image: url(/static/images/tasknest_background_edited.png);
+    background-image: url('/static/images/tasknest_hero_image.png');
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-    background-position: center top;
-    background-attachment: fixed;
-    background-size: contain;
-    color: black;
+    background-attachment: scroll;
+    color: white;
     text-align: center;
     padding: 60px;
 }
 
 body::before {
-    filter: blur(6px) brightness(0.7);
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Optional overlay */
+    z-index: -1;
 }
 
 h1 {
@@ -130,12 +134,14 @@ textarea {
     font-style: italic;
     font-size: 1.1em;
     margin-bottom: 10px;
+    color: #1f2937 !important;
 }
 
 .testimonial-author {
     font-weight: bold;
-    color: #1b4332;
+    color: #2d6a4f !important;
 }
+
 
 .navbar-dark .nav-link:hover {
     color: #f97316;
