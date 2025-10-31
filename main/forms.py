@@ -30,6 +30,7 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
             # Create the associated Profile record
+            
             Profile.objects.create(
                 user=user,
                 title=self.cleaned_data.get('title', ''),
