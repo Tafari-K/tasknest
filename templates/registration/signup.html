@@ -41,9 +41,9 @@
               {{ form.role }}
             </div>
 
-            <div class="mb-3">
-              <label for="id_current_occupation" class="form-label">Current Occupation</label>
-              {{ form.current_occupation }}
+            <div class="mb-3" id="trade-field" style="display: none;">
+                <label for="id_current_occupation" class="form-label">Trade Specialism</label>
+                {{ form.current_occupation }}
             </div>
 
             <div class="mb-3 position-relative">
@@ -80,6 +80,7 @@
 
 {% block extra_js %}
 <script src="{% static 'core/js/auth.js' %}"></script>
+
 {% endblock %}
 
 

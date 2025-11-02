@@ -3,21 +3,33 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile, Job
 
+# ---------------------------
+# TRADE OPTIONS (for Tradesmen)
+# ---------------------------
+TRADE_CHOICES = [
+    ('plumber', 'Plumber'),
+    ('electrician', 'Electrician'),
+    ('carpenter', 'Carpenter'),
+    ('painter', 'Painter'),
+    ('handyman', 'Handyman'),
+]
 
 # ---------------------------
 # USER REGISTRATION FORM
 # ---------------------------
 class CustomUserCreationForm(UserCreationForm):
-    # Extra fields (not part of Django User model)
     email = forms.EmailField(required=True, help_text='Required. Enter a valid email address.')
     title = forms.ChoiceField(choices=Profile.TITLE_CHOICES, required=False)
     role = forms.ChoiceField(choices=Profile.ROLE_CHOICES, required=True, help_text='Select your account type.')
-    current_occupation = forms.CharField(max_length=100, required=False)
+    current_occupation = forms.ChoiceField(
+        choices=TRADE_CHOICES,
+        required=False,
+        label="Trade Specialism (if applicable)"
+    )
     remember_me = forms.BooleanField(required=False, initial=False)
 
     class Meta:
         model = User
-        # Only include fields that exist in the User model
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
     def save(self, commit=True):
@@ -30,7 +42,6 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
             # Create the associated Profile record
-            
             Profile.objects.create(
                 user=user,
                 title=self.cleaned_data.get('title', ''),

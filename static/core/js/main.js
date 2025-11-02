@@ -19,3 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const roleField = document.getElementById('id_role');
+  const tradeOptions = document.getElementById('trade-options');
+
+  function toggleTradeOptions() {
+    if (roleField.value === 'tradesman') {
+      tradeOptions.style.display = 'block';
+    } else {
+      tradeOptions.style.display = 'none';
+    }
+  }
+
+  // Run on load
+  toggleTradeOptions();
+
+  // Run on change
+  roleField.addEventListener('change', toggleTradeOptions);
+});

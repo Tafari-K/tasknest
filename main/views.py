@@ -87,9 +87,6 @@ def dashboard(request):
         return render(request, 'dashboard.html', {'profile': profile})
 
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-
 @login_required
 def customer_dashboard(request):
     """Dashboard view for customers."""

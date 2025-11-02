@@ -36,3 +36,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const roleSelect = document.getElementById("id_role");
+  const tradeField = document.getElementById("trade-field");
+
+  function toggleTradeField() {
+    if (roleSelect && tradeField) {
+      tradeField.style.display = roleSelect.value === "tradesman" ? "block" : "none";
+    }
+  }
+
+  if (roleSelect) {
+    toggleTradeField();
+    roleSelect.addEventListener("change", toggleTradeField);
+  }
+});
