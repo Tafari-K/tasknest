@@ -20,7 +20,7 @@ TRADE_CHOICES = [
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, help_text='Required. Enter a valid email address.')
     title = forms.ChoiceField(choices=Profile.TITLE_CHOICES, required=False)
-    role = forms.ChoiceField(choices=Profile.ROLE_CHOICES, required=True, help_text='Select your account type.')
+    role = forms.ChoiceField(choices=Profile.ROLE_CHOICES, required=True, help_text='Select your account type.', initial='customer')
     current_occupation = forms.ChoiceField(
         choices=TRADE_CHOICES,
         required=False,

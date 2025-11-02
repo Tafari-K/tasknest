@@ -2,28 +2,22 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-
-class Profile(models.Model):
-    ROLE_CHOICES = (
+ROLE_CHOICES = [
         ('tradesman', 'Tradesman'),
         ('customer', 'Customer'),
-    )
+]
 
-    TITLE_CHOICES = (
-        ('Mr', 'Mr'),
-        ('Mrs', 'Mrs'),
-        ('Miss', 'Miss'),
-        ('Ms', 'Ms'),
-        ('Dr', 'Dr'),
-    )
 
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=10, choices=TITLE_CHOICES, blank=True)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='customer')
-    current_occupation = models.CharField(max_length=100, blank=True)
-    location = models.CharField(max_length=100, blank=True)
+
+    role = models.CharField(max_length=15, choices=ROLE_CHOICES, default='customer')
+    current_occupation = models.CharField(max_length=50, blank=True)
+
+    location = models.CharField(max_length=50, blank=True)
     skills = models.TextField(blank=True)
     qualification = models.TextField(blank=True)
+
     jobs_completed = models.PositiveIntegerField(default=0)
 
     def __str__(self):
