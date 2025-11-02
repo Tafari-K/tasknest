@@ -17,10 +17,19 @@ TRADE_CHOICES = [
 # ---------------------------
 # USER REGISTRATION FORM
 # ---------------------------
+
+
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True, help_text='Required. Enter a valid email address.')
-    title = forms.ChoiceField(choices=Profile.TITLE_CHOICES, required=False)
-    role = forms.ChoiceField(choices=Profile.ROLE_CHOICES, required=True, help_text='Select your account type.', initial='customer')
+    email = forms.EmailField(
+        required=True,
+        help_text='Required. Enter a valid email address.')
+    title = forms.ChoiceField(
+        choices=Profile.TITLE_CHOICES,
+        required=False)
+    role = forms.ChoiceField(
+        choices=Profile.ROLE_CHOICES,
+        required=True, help_text='Select your account type.',
+        initial='customer')
     current_occupation = forms.ChoiceField(
         choices=TRADE_CHOICES,
         required=False,
@@ -30,7 +39,12 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ['username',
+                  'first_name',
+                  'last_name',
+                  'email',
+                  'password1',
+                  'password2']
 
     def save(self, commit=True):
         """Override save to also create a Profile object"""
@@ -45,7 +59,8 @@ class CustomUserCreationForm(UserCreationForm):
             Profile.objects.create(
                 user=user,
                 title=self.cleaned_data.get('title', ''),
-                current_occupation=self.cleaned_data.get('current_occupation', ''),
+                current_occupation=self.cleaned_data.get(
+                    'current_occupation', ''),
                 role=self.cleaned_data['role']
             )
         return user
@@ -57,11 +72,20 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['role', 'location', 'skills', 'qualification', 'current_occupation']
+        fields = ['role',
+                  'location',
+                  'skills',
+                  'qualification',
+                  'current_occupation']
         widgets = {
-            'skills': forms.Textarea(attrs={'rows': 3, 'placeholder': 'List your skills...'}),
-            'qualification': forms.Textarea(attrs={'rows': 2, 'placeholder': 'Relevant qualifications...'}),
-            'location': forms.TextInput(attrs={'placeholder': 'e.g., London, UK'}),
+            'skills': forms.Textarea(
+                attrs={'rows': 3,
+                       'placeholder': 'List your skills...'}),
+            'qualification': forms.Textarea(
+                attrs={'rows': 2,
+                       'placeholder': 'Relevant qualifications...'}),
+            'location': forms.TextInput(
+                attrs={'placeholder': 'e.g., London, UK'}),
         }
 
 
@@ -74,5 +98,6 @@ class JobForm(forms.ModelForm):
         fields = ['title', 'description']
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Enter job title'}),
-            'description': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Describe the job'}),
+            'description': forms.Textarea(
+                attrs={'rows': 4, 'placeholder': 'Describe the job'}),
         }

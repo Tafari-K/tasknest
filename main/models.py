@@ -11,7 +11,8 @@ ROLE_CHOICES = [
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    role = models.CharField(max_length=15, choices=ROLE_CHOICES, default='customer')
+    role = models.CharField(
+        max_length=15, choices=ROLE_CHOICES, default='customer')
     current_occupation = models.CharField(max_length=50, blank=True)
 
     location = models.CharField(max_length=50, blank=True)
@@ -49,9 +50,12 @@ class Job(models.Model):
 
 class Review(models.Model):
     """Model for reviews between customers and tradesmen"""
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='reviews')
-    reviewer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='reviews_given')
-    reviewed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='reviews_received')
+    job = models.ForeignKey(
+        Job, on_delete=models.CASCADE, related_name='reviews')
+    reviewer = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='reviews_given')
+    reviewed = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='reviews_received')
     rating = models.PositiveIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)],
         help_text="Rating from 1 to 5 stars"
@@ -65,4 +69,8 @@ class Review(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"{self.reviewer.user.username} → {self.reviewed.user.username} ({self.rating}★)"
+        return (
+            f"{self.reviewer.user.username} → "
+            f"{self.reviewed.user.username} "
+            f"({self.rating})"
+        )
