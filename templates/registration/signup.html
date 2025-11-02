@@ -79,29 +79,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toggles = document.querySelectorAll(".toggle-password");
-
-    toggles.forEach(toggle => {
-      toggle.addEventListener("click", function () {
-        const inputId = this.getAttribute("data-target");
-        const input = document.getElementById(inputId);
-
-        if (input) {
-          const type = input.type === "password" ? "text" : "password";
-          input.type = type;
-
-          // Toggle the eye icon
-          const icon = this.querySelector("i");
-          if (icon) {
-            icon.classList.toggle("fa-eye");
-            icon.classList.toggle("fa-eye-slash");
-          }
-        }
-      });
-    });
-  });
-</script>
+<script src="{% static 'core/js/auth.js' %}"></script>
 {% endblock %}
+
 
