@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, Job
+from .models import Profile, Job, ROLE_CHOICES
+
 
 # ---------------------------
 # TRADE OPTIONS (for Tradesmen)
@@ -23,11 +24,8 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(
         required=True,
         help_text='Required. Enter a valid email address.')
-    title = forms.ChoiceField(
-        choices=Profile.TITLE_CHOICES,
-        required=False)
     role = forms.ChoiceField(
-        choices=Profile.ROLE_CHOICES,
+        choices=ROLE_CHOICES,
         required=True, help_text='Select your account type.',
         initial='customer')
     current_occupation = forms.ChoiceField(
@@ -35,7 +33,6 @@ class CustomUserCreationForm(UserCreationForm):
         required=False,
         label="Trade Specialism (if applicable)"
     )
-    remember_me = forms.BooleanField(required=False, initial=False)
 
     class Meta:
         model = User
@@ -58,9 +55,6 @@ class CustomUserCreationForm(UserCreationForm):
             # Create the associated Profile record
             Profile.objects.create(
                 user=user,
-                title=self.cleaned_data.get('title', ''),
-                current_occupation=self.cleaned_data.get(
-                    'current_occupation', ''),
                 role=self.cleaned_data['role']
             )
         return user
@@ -95,7 +89,7 @@ class ProfileForm(forms.ModelForm):
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['title', 'description']
+        fields = ['description']
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Enter job title'}),
             'description': forms.Textarea(

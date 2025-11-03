@@ -161,6 +161,54 @@ padding: 30px;
     color: #2d6a4f !important;
 }
 
+/* Navbar styling */
+/* === Navbar Styles === */
+.navbar {
+  background-color: #1f1f1f; /* dark background */
+  padding: 15px 30px;
+  color: white;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.navbar-left a,
+.navbar-right a {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.navbar-left a:hover,
+.navbar-right a:hover {
+  background-color: #333;
+}
+
+.navbar-left a.active {
+  background-color: #198754; /* Bootstrap green */
+  color: white;
+}
+
+/* Optional: Logout button */
+.logout-btn {
+  background-color: transparent;
+  border: 1px solid white;
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+
+
 .navbar .btn {
   margin-left: 10px;
 }

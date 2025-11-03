@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from .models import Job
-from .forms import CustomUserCreationForm, ProfileForm, JobForm
+from .forms import CustomUserCreationForm, JobForm
+from .models import Job, Review
 
-# ===============================
+# ============================
 # AUTHENTICATION VIEWS
-# ===============================
-
+# ============================
 
 def signup(request):
     if request.method == 'POST':
@@ -15,147 +14,133 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-
-            # The profile will be automatically created by the signal
-            profile = user.profile  # Access it safely (it now exists)
-
-            if profile.role == 'customer':
+            if user.role == 'customer':
                 return redirect('customer_dashboard')
             else:
                 return redirect('dashboard')
     else:
         form = CustomUserCreationForm()
-
     return render(request, 'registration/signup.html', {'form': form})
 
+
+def login_view(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
             login(request, user)
-
-            if profile.role == 'customer':
-                return redirect('customer_dashboard')
-            else:
-                return redirect('dashboard')
-    else:
-        form = CustomUserCreationForm()
-
-    return render(request, 'registration/signup.html', {'form': form})
-
-
-# ===============================
-# PROFILE MANAGEMENT
-# ===============================
-
-@login_required
-def edit_profile(request):
-    profile = request.user.profile
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=profile)
-        if form.is_valid():
-            form.save()
             return redirect('dashboard')
-    else:
-        form = ProfileForm(instance=profile)
-    return render(request, 'edit_profile.html', {'form': form})
+        else:
+            return render(request, 'registration/login.html', {'error': 'Invalid credentials'})
+    return render(request, 'registration/login.html')
 
 
-# ===============================
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+
+# ============================
 # DASHBOARD VIEWS
-# ===============================
+# ============================
 
 @login_required
 def dashboard(request):
-    """Decides which dashboard to render based on user role."""
-    profile = request.user.profile
-    if profile.role == 'tradesman':
-        active_jobs = profile.job_set.filter(is_completed=False)
-        completed_jobs = profile.job_set.filter(is_completed=True)
-        context = {
-            'profile': profile,
-            'active_jobs': active_jobs,
-            'completed_jobs': completed_jobs,
-            'active_jobs_count': active_jobs.count(),
-            'completed_jobs_count': completed_jobs.count(),
-            'reviews': [],
-        }
-        return render(request, 'dashboard_tradesman.html', context)
-    elif profile.role == 'customer':
-        return redirect('customer_dashboard')
-    else:
-        return render(request, 'dashboard.html', {'profile': profile})
+    return render(request, 'dashboard.html')
 
 
 @login_required
 def customer_dashboard(request):
-    """Dashboard view for customers."""
-    profile = request.user.profile
-
-    # Get all jobs linked to this customer's profile
-    posted_jobs = profile.job_set.all()
-    completed_jobs = posted_jobs.filter(is_completed=True)
-    pending_jobs = posted_jobs.filter(is_completed=False)
-
-    context = {
-        'profile': profile,
-        'posted_jobs': posted_jobs,
-        'completed_jobs': completed_jobs,
-        'posted_jobs_count': posted_jobs.count(),
-        'completed_jobs_count': completed_jobs.count(),
-        'pending_jobs_count': pending_jobs.count(),
-    }
-
-    return render(request, 'dashboard_customer.html', context)
-
-
-# ===============================
-# JOB MANAGEMENT
-# ===============================
-def jobs_view(request):
-    jobs = Job.objects.all()
-    return render(request, 'jobs.html', {'jobs': jobs})
+    return render(request, 'dashboard_customer.html')
 
 
 @login_required
-def create_job(request):
+def tradesman_dashboard(request):
+    return render(request, 'dashboard_tradesman.html')
+
+
+# ============================
+# JOB VIEWS
+# ============================
+
+@login_required
+def jobs(request):
+    job_list = Job.objects.all()
+    return render(request, 'jobs.html', {'jobs': job_list})
+
+
+@login_required
+def add_job(request):
     if request.method == 'POST':
         form = JobForm(request.POST)
         if form.is_valid():
             job = form.save(commit=False)
-            job.profile = request.user.profile
+            job.user = request.user
             job.save()
-            return redirect('customer_dashboard')
+            return redirect('dashboard')
     else:
         form = JobForm()
-    return render(request, 'create_job.html', {'form': form})
+    return render(request, 'add_job.html', {'form': form})
+
+
+@login_required
+def create_job(request):
+    return render(request, 'create_job.html')
+
+
+@login_required
+def edit_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    if request.method == 'POST':
+        form = JobForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = JobForm(instance=job)
+    return render(request, 'edit_job.html', {'form': form})
 
 
 @login_required
 def delete_job(request, job_id):
-    job = get_object_or_404(Job, id=job_id, profile=request.user.profile)
+    job = get_object_or_404(Job, id=job_id)
     if request.method == 'POST':
         job.delete()
-        return redirect('customer_dashboard')
+        return redirect('dashboard')
     return render(request, 'delete_job.html', {'job': job})
 
 
-@login_required
-def mark_job_complete(request, job_id):
-    job = get_object_or_404(Job, id=job_id, profile=request.user.profile)
-    job.is_completed = True
-    job.save()
-    return redirect('dashboard')
-
+# ============================
+# PROFILE / EDIT / SEARCH
+# ============================
 
 @login_required
-def add_review(request, job_id):
-    """Placeholder for review functionality"""
-    return render(request, 'add_review.html', {'job_id': job_id})
-# ===============================
-# STATIC/HOME VIEWS
-# ===============================
+def edit_profile(request):
+    return render(request, 'edit_profile.html')
 
+
+@login_required
+def search(request):
+    return render(request, 'search.html')
+
+
+# ============================
+# REVIEWS
+# ============================
+
+@login_required
+def add_review(request):
+    return render(request, 'add_review.html')
+
+
+# ============================
+# HOME + ERROR PAGES
+# ============================
 
 def home(request):
     return render(request, 'home.html')
+
+
+def custom_404_view(request, exception=None):
+    return render(request, '404.html', status=404)
