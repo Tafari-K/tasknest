@@ -141,6 +141,7 @@ Future development will focus on improving communication, personalisation, and u
 | Missing URL routes for add_job, remove_job, and add_review | Template references didn't match URL patterns | Added URL aliases and placeholder view for review functionality | Fixed | feat: add seed_profiles management command for test data |
 | No logout functionality visible to users | Logout route existed but no UI button in navigation | Added logout button to navbar with authentication check, updated logout redirect to home page | Fixed | feat: add logout button and active jobs preview page |
 | Jobs page had minimal information display | Basic list view didn't show enough job details for users to make decisions | Redesigned jobs page with card layout, status badges, poster info, location, and interactive elements | Fixed | feat: add logout button and active jobs preview page |
+| The jobs model was not showing in Django admin, even though it existed in the project. Attempted migrations showed "no changes detected". | There were two separate Django apps in the project core and main. Some model/admin files were accidentally left in core, while the actual logic used main. | Fixed | Verified that all important models, views, and admin registrations were in main. Removed the unused core app folder. Cleaned up INSTALLED_APPS in settings.py. Restarted the server and confirmed Jobs, Profiles, and Reviews now appear in Django admin.| 
 
 ## Testing
 *(To be added later)*
