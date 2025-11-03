@@ -1,4 +1,13 @@
 # TaskNest
+## Contents
+- [Project Overview](#project-overview)
+- [User Stories](#user-stories)
+- [Planning](#planning)
+- [Wireframes](#wireframes)
+- [Data Model (ERD)](#data-model-erd)
+- [Project Development Board](#project-development-board)
+- [Features](#features)
+- [Summary](#summary)
 
 ## Project Overview
 TaskNest is a full-stack web platform that connects customers with local tradesmen. 
