@@ -31,6 +31,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='profile',
             name='role',
-            field=models.CharField(choices=[('tradesman', 'Tradesman'), ('customer', 'Customer')], default='customer', max_length=15),
+            field=models.CharField(
+                choices=[
+                    ('tradesman', 'Tradesman'),
+                    ('customer', 'Customer'),
+                ],
+                default='customer',
+                max_length=15,
+            ),
         ),
     ]
