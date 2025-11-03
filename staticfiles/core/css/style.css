@@ -1,18 +1,23 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: white;
-    background-image: url(/static/images/tasknest_background_edited.png);
+    background-color: orange;
+    background-image: url(/staticfiles/images/tasknext-hero-compressed.jpg);
     background-repeat: no-repeat;
     background-position: center top;
     background-attachment: fixed;
     background-size: contain;
-    color: black;
+    color: white;
     text-align: center;
     padding: 60px;
 }
 
 body::before {
     filter: blur(6px) brightness(0.7);
+}
+
+
+.navbar {
+  background-color: navy; 
 }
 
 h1 {

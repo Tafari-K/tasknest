@@ -38,7 +38,7 @@ class Profile(models.Model):
 
 
 class Job(models.Model):
-    title = models.CharField(max_length=15)
+    title = models.CharField(max_length=50)
     description = models.TextField()
     image = models.ImageField(upload_to='job_images/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
