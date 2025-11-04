@@ -1,28 +1,23 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background-image: url('/static/images/tasknest_hero_image.png');
-    background-size: cover;
-    background-position: center center;
+    background-color: orange;
+    background-image: url(/staticfiles/images/tasknext-hero-compressed.jpg);
     background-repeat: no-repeat;
-    background-attachment: scroll;
+    background-position: center top;
+    background-attachment: fixed;
+    background-size: contain;
     color: white;
     text-align: center;
     padding: 60px;
-    display: flex;
-    flex-direction: column;
 }
 
-main{
- padding: 80px;
- }
-
 body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: -1;
+    filter: blur(6px) brightness(0.7);
+}
+
+
+.navbar {
+  background-color: navy; 
 }
 
 h1 {
@@ -98,20 +93,7 @@ textarea {
     max-width: 600px;
     margin: 0 auto;
     border-radius: 8px;
-    
-    
-.toggle-password {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #6c757d;
-  font-size: 1.1rem;
-  z-index: 2;
-}
-
-padding: 30px;
+    padding: 30px;
 }
 
 .avatar {
@@ -123,141 +105,3 @@ padding: 30px;
     border: 3px solid #fff;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
-
-
-.testimonial-section {
-    background-color: rgba(45, 106, 79, 0.1);
-    border-radius: 12px;
-    padding: 40px 20px;
-    margin-top: 40px;
-    text-align: center;
-}
-
-.section-title {
-    font-size: 2em;
-    font-weight: 600;
-    margin-bottom: 30px;
-    color: #2d6a4f;
-}
-
-.testimonial-card {
-    background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.testimonial-text {
-    font-style: italic;
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: #1f2937 !important;
-}
-
-.testimonial-author {
-    font-weight: bold;
-    color: #2d6a4f !important;
-}
-
-/* Navbar styling */
-/* === Navbar Styles === */
-.navbar {
-  background-color: #1f1f1f; /* dark background */
-  padding: 15px 30px;
-  color: white;
-}
-
-.navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.navbar-left a,
-.navbar-right a {
-  color: white;
-  text-decoration: none;
-  margin-right: 20px;
-  padding: 8px 12px;
-  border-radius: 6px;
-}
-
-.navbar-left a:hover,
-.navbar-right a:hover {
-  background-color: #333;
-}
-
-.navbar-left a.active {
-  background-color: #198754; /* Bootstrap green */
-  color: white;
-}
-
-/* Optional: Logout button */
-.logout-btn {
-  background-color: transparent;
-  border: 1px solid white;
-  padding: 6px 12px;
-  border-radius: 5px;
-}
-
-
-.navbar .btn {
-  margin-left: 10px;
-}
-
-.navbar-text {
-  margin-right: 10px;
-}
-
-.navbar-dark .nav-link:hover {
-    color: #f97316;
-    transition: color 0.3s ease;
-}
-
-@media (max-width: 576px) {
-  body {
-    padding: 20px;
-    background-position: top center;
-    background-size: cover;
-    text-align: center;
-  }
-
-  .title-box {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.5em;
-  }
-
-  .container {
-    width: 100%;
-    padding: 15px;
-  }
-
-  .button {
-    width: 100%;
-    margin-bottom: 10px;
-    font-size: 1em;
-  }
-
-  .testimonial-card {
-    padding: 15px;
-    font-size: 0.95em;
-  }
-
-  h1 {
-    font-size: 2em;
-  }
-
-  p.lead {
-    font-size: 1em;
-  }
-}
-
