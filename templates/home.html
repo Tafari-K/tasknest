@@ -2,23 +2,31 @@
 {% load static %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">
-
-<div class="title-box">
-  <h1 class="display-4">Welcome to TaskNest</h1>
+<div class="hero" style="background-image: url('{% static 'images/tasknest-hero.jpg' %}'); background-size: cover; background-position: center; height: 400px;">
+  <div class="container text-center text-white d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+    <h1 class="display-4">Welcome to TaskNest</h1>
+    <p class="lead mt-3">Connecting people with trusted tradesmen for every task.</p>
+    <div class="mt-4">
+      <a href="{% url 'signup' %}" class="btn btn-warning me-2">New User</a>
+      <a href="{% url 'login' %}" class="btn btn-outline-light">Log In</a>
+    </div>
+  </div>
 </div>
 
-<div class="container">
-  <p class="lead mt-3">Connecting people with trusted tradesmen for every task.</p>
-  <a href="{% url 'signup' %}" class="button">New User</a>
-  <a href="{% url 'login' %}" class="button">Log In</a>
-</div>
-
-<div class="testimonial-section container mt-5">
+<!-- Testimonials -->
+<section class="testimonial-section container mt-5">
   <h2 class="section-title">What Our Users Say</h2>
   <div class="testimonial-card">
     <p class="testimonial-text">“Found a reliable plumber within minutes. Excellent service!”</p>
     <div class="testimonial-author">— Ryan Wilson</div>
   </div>
-</div>
+  <div class="testimonial-card">
+    <p class="testimonial-text">“Amazing platform for finding trustworthy electricians.”</p>
+    <div class="testimonial-author">— Marla Gomez</div>
+  </div>
+  <div class="testimonial-card">
+    <p class="testimonial-text">“Got a handyman in no time. It’s a lifesaver!”</p>
+    <div class="testimonial-author">— Luke Johns</div>
+  </div>
+</section>
 {% endblock %}
