@@ -123,7 +123,7 @@ Future development will focus on improving communication, personalisation, and u
 - GitHub, Heroku
 
 ## Known Issues & Fixes
-| **Issue** | **Cause** | **Fix** | **Status** | **Commit Message** |
+| **Issue** | **Cause** | **Fix** | **Status** | **Commit Message** / Outcome|
 |-----------|-----------|---------|------------|---------------------|
 | `TemplateDoesNotExist: core/home.html` | Django couldn’t locate the template due to folder structure and missing template path in `settings.py` | Verified template location, added `core/templates` to `DIRS`, confirmed `INSTALLED_APPS` and `APP_DIRS` | Fixed | Fix: template loading issue, correct folder sturcture |
 | CSS not loading (`404` on `home.css`) | Incorrect file name in template (`home.css` instead of `style.css`) | Updated `{% static %}` path to match actual file name | Fixed | Fix: update static link to style.css |
@@ -141,7 +141,11 @@ Future development will focus on improving communication, personalisation, and u
 | Missing URL routes for add_job, remove_job, and add_review | Template references didn't match URL patterns | Added URL aliases and placeholder view for review functionality | Fixed | feat: add seed_profiles management command for test data |
 | No logout functionality visible to users | Logout route existed but no UI button in navigation | Added logout button to navbar with authentication check, updated logout redirect to home page | Fixed | feat: add logout button and active jobs preview page |
 | Jobs page had minimal information display | Basic list view didn't show enough job details for users to make decisions | Redesigned jobs page with card layout, status badges, poster info, location, and interactive elements | Fixed | feat: add logout button and active jobs preview page |
-| The jobs model was not showing in Django admin, even though it existed in the project. Attempted migrations showed "no changes detected". | There were two separate Django apps in the project core and main. Some model/admin files were accidentally left in core, while the actual logic used main. | Fixed | Verified that all important models, views, and admin registrations were in main. Removed the unused core app folder. Cleaned up INSTALLED_APPS in settings.py. Restarted the server and confirmed Jobs, Profiles, and Reviews now appear in Django admin.| 
+| The jobs model was not showing in Django admin, even though it existed in the project. Attempted migrations showed "no changes detected". | There were two separate Django apps in the project core and main. Some model/admin files were accidentally left in core, while the actual logic used main. || Fixed | Verified that all important models, views, and admin registrations were in main. Removed the unused core app folder. Cleaned up INSTALLED_APPS in settings.py. Restarted the server and confirmed Jobs, Profiles, and Reviews now appear in Django admin.| 
+|Images uploaded through Django admin were not displaying on the jobs page. A 404 error appeared when accessing image URLs. | MEDIA_ROOT and media URL routing were not properly configured. Images were uploaded via admin, but not served correctly due to missing URL patterns and folders.| |fixed | - Configured `MEDIA_ROOT` and `MEDIA_URL` in `settings.py`. Updated `urls.py` to serve media files during development using `static()`. Ensured `media/job_images/` directory exists and images are uploaded there.Re-uploaded images via Django admin. |  
+
+
+
 
 ## Testing
 *(To be added later)*
