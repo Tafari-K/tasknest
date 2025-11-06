@@ -8,6 +8,7 @@ from .models import Job, Review
 # AUTHENTICATION VIEWS
 # ============================
 
+
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -73,7 +74,7 @@ def jobs(request):
 @login_required
 def add_job(request):
     if request.method == 'POST':
-        form = JobForm(request.POST)
+        form = JobForm(request.POST, request.FILES)
         if form.is_valid():
             job = form.save(commit=False)
             job.user = request.user

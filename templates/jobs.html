@@ -11,38 +11,35 @@
   </div>
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="jobsContainer">
-    {% for job in jobs %}
-    <div class="col job-card">
-      <div class="card h-100 shadow-sm">
-        {% if job.image %}
-        <img src="{{ job.image.url }}" class="card-img-top" alt="Job Image">
-        {% else %}
-        <img src="{% static 'core/img/default-job.jpg' %}" class="card-img-top" alt="Default Job">
-        {% endif %}
-        
-        <div class="card-body">
-          <h5 class="card-title">{{ job.title }}</h5>
-          <p class="card-text">{{ job.description|truncatechars:100 }}</p>
-        </div>
+ {% for job in jobs %}
+  <div class="col-md-3 mb-4 job-card">
+    <div class="card h-100 shadow-sm">
 
-        <div class="card-footer text-muted">
-          <small>
-            {% if job.review_avg %}
-              ⭐ {{ job.review_avg|floatformat:1 }} / 5 ({{ job.review_count }} reviews)
-            {% else %}
-              No reviews yet
-            {% endif %}
-            <br>
-            <span class="badge {% if job.is_active %}bg-success{% else %}bg-secondary{% endif %}">
-              {% if job.is_active %}Active{% else %}Inactive{% endif %}
-            </span>
-          </small>
-        </div>
+      {% if job.image %}
+        <img src="{{ job.image.url }}" class="card-img-top" alt="{{ job.title }}">
+      {% else %}
+        <img src="{% static 'images/placeholder.jpg' %}" class="card-img-top" alt="No image available">
+      {% endif %}
+
+      <div class="card-body">
+        <h5 class="card-title">{{ job.title }}</h5>
+        <p class="card-text">{{ job.description|truncatewords:20 }}</p>
+
+        {% if job.is_active %}
+          <span class="badge bg-success">Active</span>
+        {% else %}
+          <span class="badge bg-secondary">Inactive</span>
+        {% endif %}
       </div>
+
+      <div class="card-footer text-end">
+        <small class="text-muted">Posted by {{ job.created_by.username }}</small>
+      </div>
+
     </div>
-    {% empty %}
-    <p>No jobs found.</p>
-    {% endfor %}
+  </div>
+{% endfor %}
+
   </div>
 </div>
 {% endblock %}

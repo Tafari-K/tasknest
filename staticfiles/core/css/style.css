@@ -3,3 +3,8 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: auto;
 }
+
+.job-card img {
+  object-fit: cover;
+  height: 200px;
+}

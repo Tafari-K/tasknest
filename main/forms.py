@@ -89,7 +89,7 @@ class ProfileForm(forms.ModelForm):
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['description']
+        fields = ['title', 'description', 'image', 'is_active']
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Enter job title'}),
             'description': forms.Textarea(
