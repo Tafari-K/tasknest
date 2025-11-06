@@ -33,7 +33,9 @@ def login_view(request):
             login(request, user)
             return redirect('dashboard')
         else:
-            return render(request, 'registration/login.html', {'error': 'Invalid credentials'})
+            return render(
+                request, 'registration/login.html',
+                {'error': 'Invalid credentials'})
     return render(request, 'registration/login.html')
 
 

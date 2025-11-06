@@ -21,9 +21,14 @@ urlpatterns = [
     path('create-job/', views.create_job, name='create_job'),
     path('add-job/', views.add_job, name='add_job'),
     path('delete-job/<int:job_id>/', views.delete_job, name='delete_job'),
-    path('remove-job/<int:job_id>/', views.delete_job, name='remove_job'),  # same view?
-    # Temporarily comment this if `mark_job_complete` view doesn't exist yet
-    # path('mark-job-complete/<int:job_id>/', views.mark_job_complete, name='mark_job_complete'),
+    path(
+        'remove-job/<int:job_id>/',
+        views.delete_job,
+        name='remove_job'),
+    # path(
+    #     'mark-job-complete/<int:job_id>/',
+    #     views.mark_job_complete,
+    #     name='mark_job_complete'),
     path('add-review/<int:job_id>/', views.add_review, name='add_review'),
 
     # Profiles
@@ -31,4 +36,6 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT)

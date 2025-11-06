@@ -8,3 +8,12 @@ body {
   object-fit: cover;
   height: 200px;
 }
+.hero {
+  background-image: url('../images/tasknest-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
