@@ -82,7 +82,7 @@ def add_job(request):
         form = JobForm(request.POST, request.FILES)
         if form.is_valid():
             job = form.save(commit=False)
-            job.user = request.user
+            job.created_by = request.user
             job.save()
             messages.success(request, 'Job added successfully!')
             return redirect('jobs')
