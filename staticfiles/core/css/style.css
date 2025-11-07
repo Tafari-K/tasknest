@@ -4,12 +4,22 @@ body {
     margin: auto;
 }
 
-.job-card img {
-  object-fit: cover;
-  height: 200px;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.wrapper {
+  display : flex;
+ flex-direction: column;
+ min-height: 100vh;
+}
+.content {
+  flex: 1;
+  padding: 20px;
 }
 .hero {
-  background-image: url('../images/tasknest-hero.jpg');
+  background-image: url('/staticfiles/images/tasknest-hero.jpg');
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -18,8 +28,62 @@ body {
   text-align: center;
 }
 
+/*navbar styling*/
 a.disabled {
     pointer-events: none;
     cursor: default;
     color: grey;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: navy;
+  padding: 10px 16px;
+  color: #fff;
+}
+.navbar .brand {
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+}
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+.nav-link:hover {
+  background: #555;
+}
+.nav-link.active {
+  background: orange;
+  color: #fff;
+}
+.welcome-text {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+/* Footer styling */
+footer {
+  background-color: navy;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: small;
+  position: relative;
 }
