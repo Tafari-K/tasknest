@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, JobForm
-from .models import Job, Review
+from .models import Job, Profile
 
 # ============================
 # AUTHENTICATION VIEWS
@@ -48,9 +48,11 @@ def logout_view(request):
 # DASHBOARD VIEWS
 # ============================
 
-@login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    profile = None
+    if hasattr(request.user, 'profile'):
+        profile = request.user.profile
+    return render(request, 'dashboard.html', {'profile': profile})
 
 
 @login_required
