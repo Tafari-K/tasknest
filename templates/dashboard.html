@@ -4,15 +4,18 @@
 <h2>Welcome, {{ user.username }}!</h2>
 <p class="logged-in">You’re logged into your TaskNest dashboard.</p>
 
+
+<!-- Tradesman Dashboard-->
 {% if profile.role == 'tradesman' %}
     <h4>Your role: Tradesman</h4>
     <p>You can create and manage jobs here.</p>
-    <ul>
+     <ul>
         <li><a href="{% url 'add_job' %}">Add New Job</a></li>
-        <p><strong>Jobs Completed:</strong> {{ profile.jobs_completed }}</p>
-        <a href="{% url 'edit_profile' %}">Edit Profile</a>
+        <li><strong>Active Jobs:</strong> {{ active_jobs }}</li>
+        <li><strong>Completed Jobs:</strong> {{ completed_jobs }}</li>
+        <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
     </ul>
-
+<!-- Customer Dashboard-->
 {% elif profile.role == 'customer' %}
     <h4>Your role: Customer</h4>
     <p>Browse tradesmen or view your bookings.</p>

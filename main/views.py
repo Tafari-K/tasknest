@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import CustomUserCreationForm, JobForm
 from .models import Job, Profile
 
@@ -16,7 +17,7 @@ def signup(request):
             user = form.save()
             login(request, user)
             if user.role == 'customer':
-                return redirect('customer_dashboard')
+                return redirect('dashboard_customer')
             else:
                 return redirect('dashboard')
     else:
@@ -49,20 +50,20 @@ def logout_view(request):
 # ============================
 
 def dashboard(request):
-    profile = None
-    if hasattr(request.user, 'profile'):
-        profile = request.user.profile
-    return render(request, 'dashboard.html', {'profile': profile})
+    profile = getattr(request.user, 'profile', None)
 
+    active_jobs = Job.objects.filter(
+        created_by=request.user,
+        is_active=True).count() if profile else 0
+    completed_jobs = Job.objects.filter(
+        created_by=request.user,
+        is_active=False).count() if profile else 0
 
-@login_required
-def customer_dashboard(request):
-    return render(request, 'dashboard_customer.html')
-
-
-@login_required
-def tradesman_dashboard(request):
-    return render(request, 'dashboard_tradesman.html')
+    return render(request, 'dashboard.html', {
+        'profile': profile,
+        'active_jobs': active_jobs,
+        'completed_jobs': completed_jobs,
+    })
 
 
 # ============================
@@ -83,7 +84,8 @@ def add_job(request):
             job = form.save(commit=False)
             job.user = request.user
             job.save()
-            return redirect('dashboard')
+            messages.success(request, 'Job added successfully!')
+            return redirect('jobs')
     else:
         form = JobForm()
     return render(request, 'add_job.html', {'form': form})

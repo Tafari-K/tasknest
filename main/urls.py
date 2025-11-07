@@ -9,12 +9,6 @@ urlpatterns = [
 
     # Dashboards
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('customer-dashboard/',
-         views.customer_dashboard,
-         name='customer_dashboard'),
-    path('dashboard_tradesman/',
-         views.tradesman_dashboard,
-         name='tradesman_dashboard'),
 
     # Jobs
     path('jobs/', views.jobs, name='jobs'),
