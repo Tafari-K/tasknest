@@ -1,50 +1,40 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}Browse Jobs - TaskNest{% endblock %}
 
+
 {% block content %}
-<div class="container py-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">Available Jobs</h2>
-    <input type="text" id="jobSearch" class="form-control w-25" placeholder="Search jobs...">
-  </div>
+<div>
+  <h2>Available Jobs</h2>
+  <input type="text" id="jobSearch" placeholder="Search jobs...">
+</div>
 
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="jobsContainer">
+<div class="jobs-board">
  {% for job in jobs %}
-  <div class="col-md-3 mb-4 job-card">
-    <div class="card h-100 shadow-sm">
+  {% if job.image %}
+    <img src="{{ job.image.url }}" class="job-card" alt="{{ job.title }}">
+  {% else %}
+    <img src="{% static 'images/placeholder.jpg' %}" class="job-card" alt="No image available">
+  {% endif %}
 
-      {% if job.image %}
-        <img src="{{ job.image.url }}" class="card-img-top" alt="{{ job.title }}">
-      {% else %}
-        <img src="{% static 'images/placeholder.jpg' %}" class="card-img-top" alt="No image available">
-      {% endif %}
+  <div class="job-body">
+    <h5 class="job-title">{{ job.title }}</h5>
+    <p class="job-description">{{ job.description|truncatewords:20 }}</p>
 
-      <div class="card-body">
-        <h5 class="card-title">{{ job.title }}</h5>
-        <p class="card-text">{{ job.description|truncatewords:20 }}</p>
-
-        {% if job.is_active %}
-          <span class="badge bg-success">Active</span>
-        {% else %}
-          <span class="badge bg-secondary">Inactive</span>
-        {% endif %}
-      </div>
-
-      <div class="card-footer text-end">
-        <small class="text-muted">Posted by {{ job.created_by.username }}</small>
-      </div>
-
-    </div>
+    {% if job.is_active %}
+      <span class="job-active">Active</span>
+    {% else %}
+      <span class="job-inactive">Inactive</span>
+    {% endif %}
   </div>
+
+  <div class="job-footer">
+    <small class="job-author">Posted by {{ job.created_by.username }}</small>
+  </div>
+
 {% endfor %}
 
-  </div>
-</div>
 {% endblock %}
 
-{% block extra_js %}
 <script src="{% static 'core/js/jobs.js' %}"></script>
 
-{% endblock %}

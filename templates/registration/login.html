@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}Login | TaskNest{% endblock %}
 {% block content %}
-  <h2>Welcome to TaskNest</h2>
+
+<h2>Welcome to TaskNest</h2>
 <p>Log in to create your profile and start posting or browsing jobs.</p>
-<form method="POST">
+<form class="login-form" method="POST">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit" class="btn btn-success">Log In</button>
-    <div class="mb-3 form-check">
+  <button type="submit">Log In</button>
+    <div>
       <input type="checkbox" class="form-check-input" id="rememberMe">
       <label class="form-check-label" for="rememberMe">Remember Me</label>
     </div>

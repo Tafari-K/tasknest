@@ -1,33 +1,31 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="container mt-5 text-center">
-    <h2>Welcome, {{ user.username }}!</h2>
-    <p class="lead">You’re logged into your TaskNest dashboard.</p>
+<h2>Welcome, {{ user.username }}!</h2>
+<p class="logged-in">You’re logged into your TaskNest dashboard.</p>
 
-    {% if profile.role == 'tradesman' %}
-        <h4>Your role: Tradesman</h4>
-        <p>You can create and manage jobs here.</p>
-        <ul style="list-style:none;">
-            <li><a href="{% url 'add_job' %}">Add New Job</a></li>
-            
-            <p><strong>Jobs Completed:</strong> {{ profile.jobs_completed }}</p>
-            <li><a href="#">View Customer Reviews</a></li>
-            <a href="{% url 'edit_profile' %}">Edit Profile</a>
-        </ul>
+{% if profile.role == 'tradesman' %}
+    <h4>Your role: Tradesman</h4>
+    <p>You can create and manage jobs here.</p>
+    <ul>
+        <li><a href="{% url 'add_job' %}">Add New Job</a></li>
+        <p><strong>Jobs Completed:</strong> {{ profile.jobs_completed }}</p>
+        <li><a href="{% url 'add_review' %}">View Customer Reviews</a></li>
+        <a href="{% url 'edit_profile' %}">Edit Profile</a>
+    </ul>
 
-    {% elif profile.role == 'customer' %}
-        <h4>Your role: Customer</h4>
-        <p>Browse tradesmen or view your bookings.</p>
-        <ul style="list-style:none;">
-            <li><a href="#">Find a Tradesman</a></li>
-            <li><a href="#">My Previous Jobs</a></li>
-            <li><a href="#">Edit Profile</a></li>
-        </ul>
+{% elif profile.role == 'customer' %}
+    <h4>Your role: Customer</h4>
+    <p>Browse tradesmen or view your bookings.</p>
+    <ul>
+        <li><a href="{% url 'search' %}">Find a Tradesman</a></li>
+        <li><a href="#">My Previous Jobs</a></li>
+        <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+    </ul>
 
-    {% else %}
-        <p>You haven’t selected a role yet.</p>
-        <a href="{% url 'edit_profile' %}">Complete Your Profile</a>
-    {% endif %}
-</div>
+{% else %}
+    <p>You haven’t selected a role yet.</p>
+    <a href="{% url 'edit_profile' %}">Complete Your Profile</a>
+{% endif %}
+
 {% endblock %}

@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container mt-5">
+<div>
   <h2>Edit Profile</h2>
-  <form method="POST">
+  <form class="edit-profile-form" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <button type="submit">Save Changes</button>
     
   </form>
 
-  <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+  <a href="{% url 'dashboard' %}">Back to Dashboard</a>
 </div>
 {% endblock %}
