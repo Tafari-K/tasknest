@@ -27,9 +27,11 @@
     <a class="navbar" href="{% url 'home' %}">TaskNest</a>
     <div>
       <ul>
+        {% if not user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Home</a>
         </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link {% if request.path == '/jobs/' %}active{% endif %}" href="{% url 'jobs' %}">Browse Jobs</a>
         </li>
