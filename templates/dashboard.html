@@ -1,33 +1,101 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
+{% endblock %}
+
 {% block content %}
-<h2>Welcome, {{ user.username }}!</h2>
-<p class="logged-in">You’re logged into your TaskNest dashboard.</p>
+<div class="dashboard-container">
 
+  <!-- Sidebar -->
+  <aside class="dashboard-sidebar">
+    <div class="avatar-section">
+      {% if profile.avatar %}
+        <img src="{{ profile.avatar.url }}" alt="Avatar" class="avatar">
+      {% else %}
+        <img src="{% static 'images/avatar-placeholder.png' %}" alt="Avatar" class="avatar">
+      {% endif %}
 
-<!-- Tradesman Dashboard-->
-{% if profile.role == 'tradesman' %}
-    <h4>Your role: Tradesman</h4>
-    <p>You can create and manage jobs here.</p>
-     <ul>
-        <li><a href="{% url 'add_job' %}">Add New Job</a></li>
-        <li><strong>Active Jobs:</strong> {{ active_jobs }}</li>
-        <li><strong>Completed Jobs:</strong> {{ completed_jobs }}</li>
+      <form method="POST" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
+        {% csrf_token %}
+        <label for="avatarUpload" class="avatar-change-label">Change Profile Picture</label>
+        <input type="file" id="avatarUpload" name="avatar" accept="image/*" class="avatar-input">
+        <button type="submit" class="avatar-upload-btn">Upload</button>
+      </form>
+    </div>
+
+    <ul class="sidebar-links">
+      {% if profile.role == 'tradesman' %}
+        <li><a href="{% url 'add_job' %}">Add Job</a></li>
         <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
-    </ul>
-<!-- Customer Dashboard-->
-{% elif profile.role == 'customer' %}
-    <h4>Your role: Customer</h4>
-    <p>Browse tradesmen or view your bookings.</p>
-    <ul>
-        <li><a href="#">Find a Tradesman</a></li>
-        <li><a href="#">My Previous Jobs</a></li>
+      {% elif profile.role == 'customer' %}
+        <li><a href="{% url 'search' %}">Find Tradesman</a></li>
         <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+      {% endif %}
     </ul>
+  </aside>
 
-{% else %}
-    <p>You haven’t selected a role yet.</p>
-    <a href="{% url 'edit_profile' %}">Complete Your Profile</a>
-{% endif %}
+  <!-- Main dashboard area -->
+  <main class="dashboard-main">
+    <div class="welcome-section">
+      <h2>Welcome, {{ user.username }}!</h2>
+      <p>You’re logged into your TaskNest dashboard.</p>
+      <p><strong>Your role:</strong> {{ profile.role|title }}</p>
+      <p>You can create and manage jobs here.</p>
+      <a href="{% url 'jobs' %}" class="view-jobs-btn">View Jobs</a>
+    </div>
 
+    <<div class="stats-card">
+  <h4>Dashboard</h4>
+  <ul>
+    <li><strong>Active Jobs:</strong> {{ active_jobs }}</li>
+    <li><strong>Completed Jobs:</strong> {{ completed_jobs }}</li>
+  </ul>
+</div>
+
+<div class="thumb-section">
+  <div class="thumb-header">
+    <h4>Active Jobs</h4>
+    <a href="{% url 'jobs' %}" class="thumb-link">View all</a>
+  </div>
+  <div class="thumb-grid">
+    {% for job in active_jobs_list %}
+      <a href="{% url 'jobs' %}" class="thumb-card" title="{{ job.title }}">
+        {% if job.image %}
+          <img src="{{ job.image.url }}" alt="{{ job.title }}">
+        {% else %}
+          <img src="{% static 'images/placeholder.jpg' %}" alt="No image">
+        {% endif %}
+        <div class="thumb-title">{{ job.title|truncatechars:28 }}</div>
+      </a>
+    {% empty %}
+      <div class="thumb-empty">No active jobs yet.</div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="thumb-section">
+  <div class="thumb-header">
+    <h4>Completed Jobs</h4>
+    <a href="{% url 'jobs' %}" class="thumb-link">View all</a>
+  </div>
+  <div class="thumb-grid">
+    {% for job in completed_jobs_list %}
+      <a href="{% url 'jobs' %}" class="thumb-card" title="{{ job.title }}">
+        {% if job.image %}
+          <img src="{{ job.image.url }}" alt="{{ job.title }}">
+        {% else %}
+          <img src="{% static 'images/placeholder.jpg' %}" alt="No image">
+        {% endif %}
+        <div class="thumb-title">{{ job.title|truncatechars:28 }}</div>
+      </a>
+    {% empty %}
+      <div class="thumb-empty">No completed jobs yet.</div>
+    {% endfor %}
+  </div>
+</div>
+  </main>
+
+</div>
 {% endblock %}

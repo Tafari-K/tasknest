@@ -49,22 +49,21 @@ def logout_view(request):
 # DASHBOARD VIEWS
 # ============================
 
+
+@login_required
 def dashboard(request):
     profile = getattr(request.user, 'profile', None)
+    active_jobs_qs = Job.objects.filter(created_by=request.user, is_active=True).order_by('-id')[:8]
+    completed_jobs_qs = Job.objects.filter(created_by=request.user, is_active=False).order_by('-id')[:8]
 
-    active_jobs = Job.objects.filter(
-        created_by=request.user,
-        is_active=True).count() if profile else 0
-    completed_jobs = Job.objects.filter(
-        created_by=request.user,
-        is_active=False).count() if profile else 0
-
-    return render(request, 'dashboard.html', {
+    context = {
         'profile': profile,
-        'active_jobs': active_jobs,
-        'completed_jobs': completed_jobs,
-    })
-
+        'active_jobs': active_jobs_qs.count(),
+        'completed_jobs': completed_jobs_qs.count(),
+        'active_jobs_list': active_jobs_qs,
+        'completed_jobs_list': completed_jobs_qs,
+    }
+    return render(request, 'dashboard.html', context)
 
 # ============================
 # JOB VIEWS

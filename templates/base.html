@@ -59,29 +59,29 @@
       </ul>
     </div>
 
-    <div class="navbar-right">
-      <ul class="nav-links">
-        {% if user.is_authenticated %}
-        <li class="nav-item">
-          <span class="welcome-text">Welcome, {{ user.username }}</span>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'logout' %}" class="nav-link">Logout</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a href="{% url 'login' %}" class="nav-link {% if request.path == '/login/' %}active{% endif %}">
-            Login
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'signup' %}" class="nav-link {% if request.path == '/signup/' %}active{% endif %}">
-            Sign Up
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-    </div>
+   <div class="navbar-right">
+  <ul class="nav-links">
+    {% if user.is_authenticated %}
+      <li class="nav-item">
+        <span class="welcome-text">Welcome, {{ user.username }}</span>
+      </li>
+      <li class="nav-item">
+        <form action="{% url 'logout' %}" method="post" class="logout-form">
+          {% csrf_token %}
+          <button type="submit" class="logout-btn nav-link">Logout</button>
+        </form>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        <a href="{% url 'login' %}" class="nav-link {% if request.path == '/login/' %}active{% endif %}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'signup' %}" class="nav-link {% if request.path == '/signup/' %}active{% endif %}">Sign Up</a>
+      </li>
+    {% endif %}
+  </ul>
+</div>
+
     </nav>
 
 

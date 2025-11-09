@@ -84,6 +84,23 @@ a.disabled {
   color: #ccc;
   font-size: 0.9rem;
 }
+.logout-form {
+  display: inline;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
+  color: #04aa6d;
+}
 
 
 /* Footer styling */
