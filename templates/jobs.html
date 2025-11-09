@@ -1,42 +1,32 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}Browse Jobs - TaskNest{% endblock %}
-
-
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'core/css/jobs.css' %}">
+{% endblock %}
 {% block content %}
-<div>
+<div class="jobs-container">
   <h2>Available Jobs</h2>
   <input type="text" id="jobSearch" placeholder="Search jobs...">
-</div>
-
-<div class="jobs-board">
- {% for job in jobs %}
- <div class="job-card">
-    {% if job.image %}
-      <img src="{{ job.image.url }}" class="job-card" alt="{{ job.title }}">
-    {% else %}
-      <img src="{% static 'images/placeholder.jpg' %}" class="job-card" alt="No image available">
-    {% endif %}
-
-    <div class="job-body">
-      <h5 class="job-title">{{ job.title }}</h5>
-      <p class="job-description">{{ job.description|truncatewords:20 }}</p>
-
-      {% if job.is_active %}
+  <div class="jobs-board">
+    {% for job in jobs %}
+    <div class="job-card">
+      <img src="{% if job.image %}{{ job.image.url }}{% else %}{% static 'images/placeholder.jpg' %}{% endif %}" alt="{{ job.title }}">
+      <div class="job-body">
+        <h5 class="job-title">{{ job.title }}</h5>
+        <p class="job-description">{{ job.description|truncatewords:20 }}</p>
+        {% if job.is_active %}
         <span class="job-active">Active</span>
-      {% else %}
+        {% else %}
         <span class="job-inactive">Inactive</span>
-      {% endif %}
+        {% endif %}
+      </div>
+      <div class="job-footer">
+        <small>Posted by {{ job.created_by.username }}</small>
+      </div>
     </div>
-
-    <div class="job-footer">
-      <small class="job-author">Posted by {{ job.created_by.username }}</small>
-    </div>
+    {% endfor %}
   </div>
 </div>
-{% endfor %}
-
-{% endblock %}
-
 <script src="{% static 'core/js/jobs.js' %}"></script>
-
+{% endblock %}

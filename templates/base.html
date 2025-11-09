@@ -11,6 +11,9 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{% static 'core/css/style.css' %}" />
+  {% block extra_head %}
+  <link rel="stylesheet" href="{% static 'core/css/jobs.css' %}">
+  {% endblock %}
 </head>
 
 <body>

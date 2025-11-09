@@ -86,31 +86,6 @@ a.disabled {
 }
 
 
-/*Jobs page styling*/
-.job-board {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  margin: auto;
-}
-
-.job-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.job-card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
 /* Footer styling */
 footer {
   background-color: navy;
@@ -119,4 +94,15 @@ footer {
   padding: 10px 0;
   font-size: small;
   position: relative;
+}
+
+
+@media (max-width: 768px) {
+  .job-card img {
+    height: 140px;
+  }
+
+  .job-title {
+    font-size: 1rem;
+  }
 }
