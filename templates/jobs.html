@@ -11,27 +11,29 @@
 
 <div class="jobs-board">
  {% for job in jobs %}
-  {% if job.image %}
-    <img src="{{ job.image.url }}" class="job-card" alt="{{ job.title }}">
-  {% else %}
-    <img src="{% static 'images/placeholder.jpg' %}" class="job-card" alt="No image available">
-  {% endif %}
-
-  <div class="job-body">
-    <h5 class="job-title">{{ job.title }}</h5>
-    <p class="job-description">{{ job.description|truncatewords:20 }}</p>
-
-    {% if job.is_active %}
-      <span class="job-active">Active</span>
+ <div class="job-card">
+    {% if job.image %}
+      <img src="{{ job.image.url }}" class="job-card" alt="{{ job.title }}">
     {% else %}
-      <span class="job-inactive">Inactive</span>
+      <img src="{% static 'images/placeholder.jpg' %}" class="job-card" alt="No image available">
     {% endif %}
-  </div>
 
-  <div class="job-footer">
-    <small class="job-author">Posted by {{ job.created_by.username }}</small>
-  </div>
+    <div class="job-body">
+      <h5 class="job-title">{{ job.title }}</h5>
+      <p class="job-description">{{ job.description|truncatewords:20 }}</p>
 
+      {% if job.is_active %}
+        <span class="job-active">Active</span>
+      {% else %}
+        <span class="job-inactive">Inactive</span>
+      {% endif %}
+    </div>
+
+    <div class="job-footer">
+      <small class="job-author">Posted by {{ job.created_by.username }}</small>
+    </div>
+  </div>
+</div>
 {% endfor %}
 
 {% endblock %}
