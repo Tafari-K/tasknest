@@ -27,6 +27,7 @@ urlpatterns = [
 
     # Profiles
     path('edit-profile/', views.edit_profile, name='edit_profile'),
+    path('profile/avatar/', views.upload_avatar, name='upload_avatar'),
 ]
 
 if settings.DEBUG:

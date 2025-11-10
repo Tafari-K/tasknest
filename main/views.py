@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
+from django.http import HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CustomUserCreationForm, JobForm
+from .forms import CustomUserCreationForm, JobForm, ProfileAvatarForm
 from .models import Job, Profile
 
 # ============================
@@ -65,9 +66,37 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
+
+@login_required
+def dashboard_tradesman(request):
+    profile = request.user.profile
+    form = ProfileAvatarForm(instance=profile)
+
+    active_jobs = profile.user.job_set.filter(status='active').count()
+    completed_jobs = profile.user.job_set.filter(status='completed').count()
+
+    return render(request, 'dashboard_tradesman.html', {
+        'profile': profile,
+        'form': form,
+        'active_jobs': active_jobs,
+        'completed_jobs': completed_jobs,
+    })
+
+
+@login_required
+def dashboard_customer(request):
+    profile = request.user.profile
+    form = ProfileAvatarForm(instance=profile)
+
+    return render(request, 'dashboard_customer.html', {
+        'profile': profile,
+        'form': form,
+    })
+
 # ============================
 # JOB VIEWS
 # ============================
+
 
 @login_required
 def jobs(request):
@@ -130,6 +159,19 @@ def edit_profile(request):
 def search(request):
     return render(request, 'search.html')
 
+@login_required
+def upload_avatar(request):
+    if request.method != 'POST':
+        return HttpResponseNotAllowed(['POST'])
+
+    form = ProfileAvatarForm(request.POST, request.FILES, instance=request.user.profile)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Profile picture updated successfully.")
+    else:
+        messages.error(request, "There was a problem updating your profile picture.")
+
+    return redirect(request.POST.get('next') or request.META.get('HTTP_REFERER') or 'dashboard')
 
 # ============================
 # REVIEWS

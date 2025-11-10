@@ -66,11 +66,14 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['role',
-                  'location',
-                  'skills',
-                  'qualification',
-                  'current_occupation']
+        fields = [
+            'avatar',
+            'role',
+            'location',
+            'skills',
+            'qualification',
+            'current_occupation'
+        ]
         widgets = {
             'skills': forms.Textarea(
                 attrs={'rows': 3,
@@ -83,6 +86,10 @@ class ProfileForm(forms.ModelForm):
         }
 
 
+class ProfileAvatarForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar']
 # ---------------------------
 # JOB MANAGEMENT FORM
 # ---------------------------
