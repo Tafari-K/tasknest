@@ -9,21 +9,26 @@
 <div class="dashboard-container">
 
   <!-- Sidebar -->
-  <aside class="dashboard-sidebar">
-    <div class="avatar-section">
-      {% if profile.avatar %}
-        <img src="{{ profile.avatar.url }}" alt="Avatar" class="avatar">
-      {% else %}
-        <img src="{% static 'images/avatar-placeholder.png' %}" alt="Avatar" class="avatar">
-      {% endif %}
+<div class="avatar-section">
+  <div class="avatar-container">
+    <img src="{% static 'core/images/avatar-placeholder.png' %}" alt="Avatar" class="avatar-img">
 
-      <form method="POST" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
-        {% csrf_token %}
-        <label for="avatarUpload" class="avatar-change-label">Change Profile Picture</label>
-        <input type="file" id="avatarUpload" name="avatar" accept="image/*" class="avatar-input">
-        <button type="submit" class="avatar-upload-btn">Upload</button>
-      </form>
-    </div>
+    <p class="change-link">Change Profile Picture</p>
+
+    <form method="post" enctype="multipart/form-data" class="upload-form">
+      {% csrf_token %}
+      <input type="file" name="avatar" class="file-input">
+      <button type="submit" class="upload-btn">Upload</button>
+    </form>
+
+    <ul class="dashboard-links">
+      <li><a href="{% url 'add_job' %}">Add Job</a></li>
+      <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+    </ul>
+  </div>
+</div>
+
+
 
     <ul class="sidebar-links">
       {% if profile.role == 'tradesman' %}
