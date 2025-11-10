@@ -40,10 +40,10 @@
       <p>You’re logged into your TaskNest dashboard.</p>
       <p><strong>Your role:</strong> {{ profile.role|title }}</p>
       <p>You can create and manage jobs here.</p>
-      <a href="{% url 'jobs' %}" class="view-jobs-btn">View Jobs</a>
+      <a href="{% url 'jobs' %}" class="view-jobs-btn">View Active Jobs</a>
     </div>
 
-    <<div class="stats-card">
+    <div class="stats-card">
   <h4>Dashboard</h4>
   <ul>
     <li><strong>Active Jobs:</strong> {{ active_jobs }}</li>
