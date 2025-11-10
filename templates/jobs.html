@@ -7,6 +7,10 @@
 {% block content %}
 <div class="jobs-container">
   <h2>Available Jobs</h2>
+  <div class="back-dashboard">
+  <a href="{% url 'dashboard' %}" class="back-btn">← Back to Dashboard</a>
+  </div>
+
   <input type="text" id="jobSearch" placeholder="Search jobs...">
   <div class="jobs-board">
     {% for job in jobs %}
