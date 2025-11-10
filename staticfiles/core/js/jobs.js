@@ -1,10 +1,13 @@
+  document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.querySelector('#job-search');
+  const jobCards = document.querySelectorAll('.job-card');
 
-document.getElementById('jobSearch').addEventListener('keyup', function () {
-    const term = this.value.toLowerCase();
-    const cards = document.querySelectorAll('.job-card');
-
-    cards.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(term) ? 'block' : 'none';
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    jobCards.forEach(card => {
+      const title = card.querySelector('h4').textContent.toLowerCase();
+      const desc = card.querySelector('p').textContent.toLowerCase();
+      card.style.display = (title.includes(query) || desc.includes(query)) ? '' : 'none';
     });
   });
+});
