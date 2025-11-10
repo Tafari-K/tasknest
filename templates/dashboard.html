@@ -22,15 +22,6 @@
     </form>
 
     <ul class="dashboard-links">
-      <li><a href="{% url 'add_job' %}">Add Job</a></li>
-      <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
-    </ul>
-  </div>
-</div>
-
-
-
-    <ul class="sidebar-links">
       {% if profile.role == 'tradesman' %}
         <li><a href="{% url 'add_job' %}">Add Job</a></li>
         <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
@@ -39,7 +30,8 @@
         <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
       {% endif %}
     </ul>
-  </aside>
+  </div>
+</div>
 
   <!-- Main dashboard area -->
   <main class="dashboard-main">
