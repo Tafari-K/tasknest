@@ -19,6 +19,7 @@ urlpatterns = [
         'remove-job/<int:job_id>/',
         views.delete_job,
         name='remove_job'),
+    path('edit_job/<int:job_id>/', views.edit_job, name='edit_job'),
     # path(
     #     'mark-job-complete/<int:job_id>/',
     #     views.mark_job_complete,

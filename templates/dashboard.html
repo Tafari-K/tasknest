@@ -26,7 +26,6 @@
         <li><a href="{% url 'add_job' %}">Add Job</a></li>
         <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
       {% elif profile.role == 'customer' %}
-        <li><a href="{% url 'search' %}">Find Tradesman</a></li>
         <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
       {% endif %}
     </ul>

@@ -93,6 +93,8 @@ class ProfileAvatarForm(forms.ModelForm):
 # ---------------------------
 # JOB MANAGEMENT FORM
 # ---------------------------
+
+
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
