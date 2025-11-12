@@ -28,7 +28,7 @@ SECRET_KEY = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['radiant-basin-21382-def06d122dd1.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['https://tasknest-eu-1d1de4a401f0.herokuapp.com/', '127.0.0.1', 'localhost']
 
 
 # Application definition
