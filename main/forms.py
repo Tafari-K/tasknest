@@ -13,6 +13,7 @@ TRADE_CHOICES = [
     ('carpenter', 'Carpenter'),
     ('painter', 'Painter'),
     ('handyman', 'Handyman'),
+    ('driver', 'Driver'),
 ]
 
 # ---------------------------

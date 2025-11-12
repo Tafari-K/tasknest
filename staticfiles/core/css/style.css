@@ -133,6 +133,7 @@ footer {
   position: relative;
 }
 
+/*media queries for responsiveness*/
 
 @media (max-width: 768px) {
   .job-card img {
