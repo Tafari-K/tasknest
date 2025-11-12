@@ -1,1 +1,1 @@
-web: gunicorn tasknest_project.wsgi
+web: gunicorn tasknest.wsgi
