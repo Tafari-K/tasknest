@@ -3,8 +3,13 @@ from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CustomUserCreationForm, JobForm, ProfileAvatarForm
-from .models import Job, Profile
+from .forms import (
+    CustomUserCreationForm,
+    JobForm,
+    ProfileAvatarForm,
+    ProfileForm,
+)
+from .models import Job
 
 # ============================
 # AUTHENTICATION VIEWS
@@ -87,7 +92,6 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 
-
 @login_required
 def dashboard_tradesman(request):
     profile = request.user.profile
@@ -120,7 +124,7 @@ def complete_job(request, job_id):
     job = get_object_or_404(Job, id=job_id, created_by=request.user)
 
     if request.method == "POST":
-        job.is_active = False     
+        job.is_active = False
         job.save()
         return redirect('dashboard')
 
@@ -147,7 +151,6 @@ def delete_job(request, job_id):
     job.save()
 
     return redirect('dashboard')
-
 
 
 # ============================
@@ -194,56 +197,49 @@ def edit_job(request, job_id):
     return render(request, 'edit_job.html', {'form': form})
 
 
-@login_required
-def delete_job(request, job_id):
-    job = get_object_or_404(Job, id=job_id)
-    if request.method == 'POST':
-        job.delete()
-        return redirect('dashboard')
-    return render(request, 'delete_job.html', {'job': job})
-
-
-@login_required
-def restore_job(request, job_id):
-    job = get_object_or_404(Job, id=job_id, created_by=request.user)
-
-    job.is_active = True
-    job.is_deleted = False
-    job.save()
-
-    return redirect('dashboard')
-
-
 # ============================
 # PROFILE / EDIT / SEARCH
 # ============================
 
 @login_required
 def edit_profile(request):
-    return render(request, 'edit_profile.html')
+    profile = request.user.profile
+    form = ProfileForm(instance=profile)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your profile has been updated.")
+            return redirect('dashboard')
+
+    return render(request, 'edit_profile.html', {'form': form})
 
 
 @login_required
 def search(request):
     return render(request, 'search.html')
 
+
 @login_required
 def upload_avatar(request):
     if request.method != 'POST':
         return HttpResponseNotAllowed(['POST'])
 
-    form = ProfileAvatarForm(request.POST, request.FILES, instance=request.user.profile)
+    profile = request.user.profile
+    form = ProfileAvatarForm(request.POST, request.FILES, instance=profile)
+
     if form.is_valid():
         form.save()
         messages.success(request, "Profile picture updated successfully.")
     else:
-        messages.error(request, "There was a problem updating your profile picture.")
+        messages.error(request, "There was an error updating your picture.")
 
-    return redirect(request.POST.get('next') or request.META.get('HTTP_REFERER') or 'dashboard')
-
+    return redirect(request.META.get('HTTP_REFERER', 'dashboard'))
 # ============================
 # REVIEWS
 # ============================
+
 
 @login_required
 def add_review(request):
