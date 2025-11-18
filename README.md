@@ -42,7 +42,7 @@ Below are the initial wireframes created for TaskNest.
 ![Ad Listing Page Wireframe](static/wireframes/ad-listings-page.png)
 
 ### Review Page
-![Review Page Wireframe](static/wireframes/review-page.png)
+![Review Page Wireframe](/static/wireframes/review-page.png)
 
 - ERD (Data Model)
 
@@ -50,7 +50,7 @@ Below are the initial wireframes created for TaskNest.
 
 The following diagram shows the relationships between the main entities in TaskNest.
 
-![Entity Relationship Diagram](static/planning/tasknest-diagram.png)
+![Entity Relationship Diagram](/staticfiles/planning/tasknest_ERD.png)
 
 ## Project Development Board
 
@@ -69,12 +69,22 @@ Below are the main features planned for development, separated into **MVP (Minim
 ## Features
 
 - User authentication (register, login, logout)
-- Tradesmen can create and manage listings
-- Customers can book and leave feedback
+- Tradesmen can create jobs and manage listings
+- Customers can create job ads and leave feedback
 - Responsive design using Bootstrap
 - **Database:** SQLite (chosen for MVP simplicity and Django integration)
 
----
+### preset profiles
+Below are details of the preset profiles created for testing and demonstration purposes:
+Username: james_sparks | Password: TestPass123!
+Username: sarah_fixes | Password: TestPass123!
+Username: mike_carpenter | Password: TestPass123!
+
+Customers:
+
+Username: emma_wilson | Password: TestPass123!
+Username: david_brown | Password: TestPass123!
+Username: lisa_jones | Password: TestPass123!
 
 ### Minimum Viable Product (MVP)
 
