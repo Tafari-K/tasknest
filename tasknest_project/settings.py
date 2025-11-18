@@ -30,8 +30,6 @@ SECRET_KEY = (
 DEBUG = True
 
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,7 +43,10 @@ INSTALLED_APPS = [
 ]
 
 # Heroku settings
-ALLOWED_HOSTS = ['tasknest-eu-1d1de4a401f0.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    'tasknest-eu-1d1de4a401f0.herokuapp.com',
+    '127.0.0.1',
+    'localhost']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
