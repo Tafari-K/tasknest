@@ -46,6 +46,7 @@ class Job(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='job_images/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    is_deleted = models.BooleanField(default=False)
     created_by = models.ForeignKey(
         User, on_delete=models.CASCADE,
         related_name='jobs')

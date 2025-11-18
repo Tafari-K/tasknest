@@ -54,8 +54,26 @@ def logout_view(request):
 @login_required
 def dashboard(request):
     profile = getattr(request.user, 'profile', None)
-    active_jobs_qs = Job.objects.filter(created_by=request.user, is_active=True).order_by('-id')[:8]
-    completed_jobs_qs = Job.objects.filter(created_by=request.user, is_active=False).order_by('-id')[:8]
+
+    # ACTIVE (not deleted)
+    active_jobs_qs = Job.objects.filter(
+        created_by=request.user,
+        is_active=True,
+        is_deleted=False
+    )
+
+    # COMPLETED (not deleted)
+    completed_jobs_qs = Job.objects.filter(
+        created_by=request.user,
+        is_active=False,
+        is_deleted=False
+    )
+
+    # DELETED
+    deleted_jobs_qs = Job.objects.filter(
+        created_by=request.user,
+        is_deleted=True
+    )
 
     context = {
         'profile': profile,
@@ -63,8 +81,11 @@ def dashboard(request):
         'completed_jobs': completed_jobs_qs.count(),
         'active_jobs_list': active_jobs_qs,
         'completed_jobs_list': completed_jobs_qs,
+        'deleted_jobs_list': deleted_jobs_qs,
     }
+
     return render(request, 'dashboard.html', context)
+
 
 
 @login_required
@@ -92,6 +113,42 @@ def dashboard_customer(request):
         'profile': profile,
         'form': form,
     })
+
+
+@login_required
+def complete_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id, created_by=request.user)
+
+    if request.method == "POST":
+        job.is_active = False     
+        job.save()
+        return redirect('dashboard')
+
+    return redirect('dashboard')
+
+
+@login_required
+def restore_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id, created_by=request.user)
+
+    job.is_deleted = False
+    job.is_active = True
+    job.save()
+
+    return redirect('dashboard')
+
+
+@login_required
+def delete_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id, created_by=request.user)
+
+    job.is_active = False
+    job.is_deleted = True
+    job.save()
+
+    return redirect('dashboard')
+
+
 
 # ============================
 # JOB VIEWS
@@ -144,6 +201,17 @@ def delete_job(request, job_id):
         job.delete()
         return redirect('dashboard')
     return render(request, 'delete_job.html', {'job': job})
+
+
+@login_required
+def restore_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id, created_by=request.user)
+
+    job.is_active = True
+    job.is_deleted = False
+    job.save()
+
+    return redirect('dashboard')
 
 
 # ============================

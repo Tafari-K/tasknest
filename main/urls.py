@@ -19,10 +19,15 @@ urlpatterns = [
         'remove-job/<int:job_id>/',
         views.delete_job,
         name='remove_job'),
-    # path(
-    #     'mark-job-complete/<int:job_id>/',
-    #     views.mark_job_complete,
-    #     name='mark_job_complete'),
+    path(
+        'mark-job-complete/<int:job_id>/',
+        views.complete_job,
+        name='complete_job'),
+    path('edit-job/<int:job_id>/', views.edit_job, name='edit_job'),
+    path(
+        'restore-job/<int:job_id>/',
+        views.restore_job,
+        name='restore_job'),
     path('add-review/<int:job_id>/', views.add_review, name='add_review'),
 
     # Profiles
