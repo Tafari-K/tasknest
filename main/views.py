@@ -37,7 +37,7 @@ def login_view(request):
         else:
             return render(
                 request, 'registration/login.html',
-                {'error': 'Invalid credentials'})
+                {'error': 'Invalid credentials. Please try again.'})
     return render(request, 'registration/login.html')
 
 

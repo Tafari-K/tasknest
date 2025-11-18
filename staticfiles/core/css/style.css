@@ -25,15 +25,6 @@ html, body {
   flex: 1;
   padding: 20px;
 }
-.hero {
-  background-image: url('/staticfiles/images/tasknest-hero.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-  color: white;
-  padding: 80px 20px;
-  text-align: center;
-}
 
 /*navbar styling*/
 a.disabled {
@@ -133,6 +124,7 @@ footer {
   position: relative;
 }
 
+/*media queries for responsiveness*/
 
 @media (max-width: 768px) {
   .job-card img {

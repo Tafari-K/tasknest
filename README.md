@@ -163,7 +163,26 @@ Future development will focus on improving communication, personalisation, and u
 *(To be added later)*
 
 ## Deployment
-*(To be added later)*
+in order to deploy this project to Heroku, the following steps were taken:
+1. Created a `Procfile` and .python-version in the root directory with the following content:
+   ```
+   web: gunicorn tasknest_project.wsgi
+   ```
+   ```
+    3.12
+    ```
+2. Added `gunicorn` , `whitenoise` and 'dj-database-url' to `requirements.txt`
+   ```
+3. git bash heroku ps:scale web=1
+   ```
+4. heroku run python manage.py migrate
+
+5. create heroku app
+
+the site can be found on heroku via the following link:
+https://tasknest-eu-1d1de4a401f0.herokuapp.com/
+
+## Project Development Board
 project board link:
 https://github.com/users/Tafari-K/projects/6/views/1
 ## Credits

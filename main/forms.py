@@ -13,6 +13,7 @@ TRADE_CHOICES = [
     ('carpenter', 'Carpenter'),
     ('painter', 'Painter'),
     ('handyman', 'Handyman'),
+    ('driver', 'Driver'),
 ]
 
 # ---------------------------
@@ -93,6 +94,8 @@ class ProfileAvatarForm(forms.ModelForm):
 # ---------------------------
 # JOB MANAGEMENT FORM
 # ---------------------------
+
+
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job

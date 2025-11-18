@@ -1,17 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block title %}Login | TaskNest{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'core/css/login.css' %}">
+{% endblock %}
+
 {% block content %}
+<div class="login-container">
+  <h2>Welcome to TaskNest</h2>
+  <p>Log in to create your profile and start posting or browsing jobs.</p>
 
-<h2>Welcome to TaskNest</h2>
-<p>Log in to create your profile and start posting or browsing jobs.</p>
-<form class="login-form" method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-    <div>
-      <input type="checkbox" class="form-check-input" id="rememberMe">
-      <label class="form-check-label" for="rememberMe">Remember Me</label>
-    </div>
-</form>
+  {% if error %}
+  <div class="error-message">{{ error }}</div>
+  {% endif %}
 
+  <form class="login-form" method="POST">
+    {% csrf_token %}
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Log In</button>
+  </form>
+
+  <p class="signup-link">
+    Don’t have an account? <a href="{% url 'signup' %}">Sign up</a>
+  </p>
+</div>
 {% endblock %}
