@@ -6,155 +6,156 @@
 {% endblock %}
 
 {% block content %}
+<p>DEBUG: CSS LOADED</p>
+<div class="content">
+    <div class="dashboard-container">
 
-<div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="avatar-section">
+        <div class="avatar-container">
 
-  <!-- Sidebar -->
-  <div class="avatar-section">
-    <div class="avatar-container">
+        <img src="{% static 'images/tasknest-logo.png' %}" alt="Avatar" class="avatar-img">
 
-      <img src="{% static 'images/tasknest-logo.png' %}" alt="Avatar" class="avatar-img">
+        <p class="change-link">Change Profile Picture</p>
 
-      <p class="change-link">Change Profile Picture</p>
+        <form method="post" enctype="multipart/form-data" class="upload-form">
+            {% csrf_token %}
+            <input type="file" name="avatar" class="file-input">
+            <button type="submit" class="upload-btn">Upload</button>
+        </form>
 
-      <form method="post" enctype="multipart/form-data" class="upload-form">
-        {% csrf_token %}
-        <input type="file" name="avatar" class="file-input">
-        <button type="submit" class="upload-btn">Upload</button>
-      </form>
-
-      <ul class="dashboard-links">
-        {% if profile.role == 'tradesman' %}
-          <li><a href="{% url 'add_job' %}">Add Job</a></li>
-          <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
-        {% elif profile.role == 'customer' %}
-          <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
-        {% endif %}
-      </ul>
-    </div>
-  </div>
-
-  <!-- Main dashboard area -->
-  <main class="dashboard-main">
-    <div class="welcome-section">
-      <h2>Welcome, {{ user.username }}!</h2>
-      <p>You’re logged into your TaskNest dashboard.</p>
-      <p><strong>Your role:</strong> {{ profile.role|title }}</p>
-    </div>
-
-    <!-- == DASHBOARD STATS SECTION == -->
-    <div class="stats-card">
-        <h4>Dashboard</h4>
-        <ul>
-            <li><strong>Active Jobs:</strong> {{ active_jobs }}</li>
-            <li><strong>Completed Jobs:</strong> {{ completed_jobs }}</li>
+        <ul class="dashboard-links">
+            {% if profile.role == 'tradesman' %}
+            <li><a href="{% url 'add_job' %}">Add Job</a></li>
+            <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+            {% elif profile.role == 'customer' %}
+            <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+            {% endif %}
         </ul>
-        <a href="{% url 'jobs' %}" class="view-jobs-btn">View Jobsboard</a>
+        </div>
     </div>
 
-    <!-- == ACTIVE JOBS SECTION == -->
-    <div class="thumb-section">
-        <div class="thumb-header">
-            <h4>Active Jobs</h4>
-            <a href="{% url 'jobs' %}" class="thumb-link">View all</a>
+    <!-- Main dashboard area -->
+    <main class="dashboard-main">
+        <div class="welcome-section">
+        <h2>Welcome, {{ user.username }}!</h2>
+        <p>You’re logged into your TaskNest dashboard.</p>
+        <p><strong>Your role:</strong> {{ profile.role|title }}</p>
         </div>
 
-        <p>You can create and manage jobs here.</p>
+        <!-- == DASHBOARD STATS SECTION == -->
+        <div class="stats-card">
+            <h4>Dashboard</h4>
+            <ul>
+                <li><strong>Active Jobs:</strong> {{ active_jobs }}</li>
+                <li><strong>Completed Jobs:</strong> {{ completed_jobs }}</li>
+            </ul>
+            <a href="{% url 'jobs' %}" class="view-jobs-btn">View Jobsboard</a>
+        </div>
 
-        <div class="thumb-grid">
-            {% for job in active_jobs_list %}
-            <div class="thumb-card">
+        <!-- == ACTIVE JOBS SECTION == -->
+        <div class="thumb-section">
+            <div class="thumb-header">
+                <h4>Active Jobs</h4>
+                <a href="{% url 'jobs' %}" class="thumb-link">View all</a>
+            </div>
 
-                {% if job.image %}
-                    <img src="{{ job.image.url }}" alt="{{ job.title }}">
-                {% else %}
-                    <img src="{% static 'images/placeholder.jpg' %}" alt="No image">
-                {% endif %}
+            <p>You can create and manage jobs here.</p>
 
-                <div class="thumb-title">{{ job.title|truncatechars:28 }}</div>
+            <div class="thumb-grid">
+                {% for job in active_jobs_list %}
+                <div class="thumb-card">
 
-                <div class="job-actions">
-                    <a href="{% url 'edit_job' job.id %}" class="btn-edit">Edit</a>
+                    {% if job.image %}
+                        <img src="{{ job.image.url }}" alt="{{ job.title }}">
+                    {% else %}
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="No image">
+                    {% endif %}
 
-                    <form action="{% url 'delete_job' job.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn-delete">Delete</button>
-                    </form>
+                    <div class="thumb-title">{{ job.title|truncatechars:28 }}</div>
+
+                    <div class="job-actions">
+                        <a href="{% url 'edit_job' job.id %}" class="btn-edit">Edit</a>
+
+                        <form action="{% url 'delete_job' job.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-delete">Delete</button>
+                        </form>
+                    </div>
+
                 </div>
-
+                {% empty %}
+                    <div class="thumb-empty">No active jobs yet.</div>
+                {% endfor %}
             </div>
-            {% empty %}
-                <div class="thumb-empty">No active jobs yet.</div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <!-- == COMPLETED JOBS SECTION == -->
-    <div class="thumb-section completed-section">
-        <div class="thumb-header">
-            <h4>Completed Jobs</h4>
-            <a href="{% url 'jobs' %}" class="thumb-link">View all</a>
         </div>
 
-        {% if completed_jobs_list %}
-        <div class="thumb-grid">
-            {% for job in completed_jobs_list %}
-            <div class="thumb-card completed-card">
-
-                {% if job.image %}
-                    <img src="{{ job.image.url }}" alt="{{ job.title }}">
-                {% else %}
-                    <img src="{% static 'images/placeholder.jpg' %}" alt="No image">
-                {% endif %}
-
-                <div class="thumb-title">{{ job.title|truncatechars:28 }}</div>
-
+        <!-- == COMPLETED JOBS SECTION == -->
+        <div class="thumb-section completed-section">
+            <div class="thumb-header">
+                <h4>Completed Jobs</h4>
+                <a href="{% url 'jobs' %}" class="thumb-link">View all</a>
             </div>
-            {% endfor %}
-        </div>
-        {% else %}
-            <div class="thumb-empty">No completed jobs yet.</div>
-        {% endif %}
-    </div>
 
+            {% if completed_jobs_list %}
+            <div class="thumb-grid">
+                {% for job in completed_jobs_list %}
+                <div class="thumb-card completed-card">
 
-    <!-- == DELETED JOBS SECTION == -->
-    <div class="thumb-section deleted-section">
-        <div class="thumb-header">
-            <h4>Deleted Jobs</h4>
-        </div>
+                    {% if job.image %}
+                        <img src="{{ job.image.url }}" alt="{{ job.title }}">
+                    {% else %}
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="No image">
+                    {% endif %}
 
-        {% if deleted_jobs_list %}
-        <div class="thumb-grid">
-            {% for job in deleted_jobs_list %}
-            <div class="thumb-card deleted-card">
+                    <div class="thumb-title">{{ job.title|truncatechars:28 }}</div>
 
-                {% if job.image %}
-                    <img src="{{ job.image.url }}" alt="{{ job.title }}">
-                {% else %}
-                    <img src="{% static 'images/placeholder.jpg' %}" alt="No image">
-                {% endif %}
-
-                <div class="thumb-title">{{ job.title|truncatechars:28 }}</div>
-
-                <div class="job-actions">
-                    <form action="{% url 'restore_job' job.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn-restore">Restore</button>
-                    </form>
                 </div>
-
-                <div class="deleted-badge">Deleted</div>
-
+                {% endfor %}
             </div>
-            {% endfor %}
+            {% else %}
+                <div class="thumb-empty">No completed jobs yet.</div>
+            {% endif %}
         </div>
-        {% else %}
-            <div class="thumb-empty">No deleted jobs.</div>
-        {% endif %}
-    </div>
 
-  </main>
+
+        <!-- == DELETED JOBS SECTION == -->
+        <div class="thumb-section deleted-section">
+            <div class="thumb-header">
+                <h4>Deleted Jobs</h4>
+            </div>
+
+            {% if deleted_jobs_list %}
+            <div class="thumb-grid">
+                {% for job in deleted_jobs_list %}
+                <div class="thumb-card deleted-card">
+
+                    {% if job.image %}
+                        <img src="{{ job.image.url }}" alt="{{ job.title }}">
+                    {% else %}
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="No image">
+                    {% endif %}
+
+                    <div class="thumb-title">{{ job.title|truncatechars:28 }}</div>
+
+                    <div class="job-actions">
+                        <form action="{% url 'restore_job' job.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-restore">Restore</button>
+                        </form>
+                    </div>
+
+                    <div class="deleted-badge">Deleted</div>
+
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                <div class="thumb-empty">No deleted jobs.</div>
+            {% endif %}
+        </div>
+
+    </main>
+    </div>
 </div>
-
 {% endblock %}
