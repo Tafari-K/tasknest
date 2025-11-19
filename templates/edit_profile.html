@@ -1,19 +1,50 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'core/css/edit_profile.css' %}">
+{% endblock %}
+
 {% block content %}
-<div>
-  <h2>Edit Profile</h2>
-  <form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
+<div class="page-wrapper">
+  <div class="responsive-form">
 
-  <label for="id_avatar" class="avatar-label">Change Profile Picture</label>
-  <input type="file" name="avatar" id="id_avatar" accept="image/*">
+      <h2>Edit Profile</h2>
 
-  <button type="submit" class="btn">Save Changes</button>
-  </form>
+      <form method="post" enctype="multipart/form-data" class="profile-form">
+          {% csrf_token %}
 
+          <!-- Avatar -->
+          <label for="id_avatar">Profile Picture</label>
+          {{ form.avatar }}
 
-  <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+          <!-- Role -->
+          <label for="id_role">Account type</label>
+          {{ form.role }}
+
+          <!-- Occupation -->
+          <label for="id_current_occupation">Trade</label>
+          {{ form.current_occupation }}
+
+          <!-- Location -->
+          <label for="id_location">Location</label>
+          {{ form.location }}
+
+          <!-- Skills -->
+          <label for="id_skills">Skills</label>
+          {{ form.skills }}
+
+          <!-- Qualification -->
+          <label for="id_qualification">Qualification</label>
+          {{ form.qualification }}
+      <div class="form-buttons">
+          <!-- Submit button -->
+          <input type="submit" value="Save Changes">
+          
+          <!-- Back button -->
+          <a href="{% url 'dashboard' %}" class="back-button">Back to Dashboard</a>
+      </div>
+      </form>
+  </div>
 </div>
 {% endblock %}

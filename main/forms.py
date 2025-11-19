@@ -73,17 +73,15 @@ class ProfileForm(forms.ModelForm):
             'location',
             'skills',
             'qualification',
-            'current_occupation'
+            'current_occupation',
         ]
         widgets = {
-            'skills': forms.Textarea(
-                attrs={'rows': 3,
-                       'placeholder': 'List your skills...'}),
-            'qualification': forms.Textarea(
-                attrs={'rows': 2,
-                       'placeholder': 'Relevant qualifications...'}),
-            'location': forms.TextInput(
-                attrs={'placeholder': 'e.g., London, UK'}),
+            'avatar': forms.FileInput(attrs={'class': 'form-input'}),
+            'role': forms.Select(attrs={'class': 'form-input'}),
+            'location': forms.TextInput(attrs={'class': 'form-input'}),
+            'skills': forms.Textarea(attrs={'class': 'form-input'}),
+            'qualification': forms.Textarea(attrs={'class': 'form-input'}),
+            'current_occupation': forms.TextInput(attrs={'class': 'form-input'}),
         }
 
 

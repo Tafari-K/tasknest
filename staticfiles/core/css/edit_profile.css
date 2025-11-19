@@ -1,0 +1,79 @@
+.page-wrapper {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.responsive-form {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.responsive-form h2 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-form label {
+    font-weight: bold;
+}
+
+.profile-form input[type="text"],
+.profile-form select,
+.profile-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    resize: none;
+}
+
+.profile-form textarea {
+    height: 120px;
+}
+
+.profile-form input[type="submit"] {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.profile-form input[type="submit"]:hover {
+    background-color: #008f59;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px;
+    background: #f15a24;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.back-button:hover {
+    background: #d74c1d;
+}
+
+@media (max-width: 768px) {
+    .responsive-form {
+        padding: 15px;
+    }
+}
