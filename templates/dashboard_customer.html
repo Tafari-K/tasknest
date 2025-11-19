@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
+{% endblock %}
 {% block content %}
 <div class="container py-5">
 
@@ -59,19 +62,22 @@
     </div>
   </div>
 
-  <!-- REVIEWS RECEIVED -->
-  <div class="reviews-recieved">
-    <h4>Reviews From Tradesmen</h4>
-  <div>
-    {% if received_reviews %}
-    {% for review in received_reviews %}
-      <p><strong>{{ review.tradesman.username }}</strong> – ⭐ {{ review.rating }}/5</p>
-      <p>{{ review.comment }}</p>
-    {% endfor %}
-    {% else %}
-      <p class="text-muted">No reviews received yet.</p>
-    {% endif %}
-  </div>
+  <!-- REVIEWS GIVEN -->
+  <div class="reviews-section">
+    <h4>Reviews You Gave</h4>
+
+      {% if given_reviews %}
+          {% for review in given_reviews %}
+              <p>
+                  <strong>{{ review.reviewed.user.username }}</strong>
+                  ⭐ {{ review.rating }}/5
+              </p>
+              <p>{{ review.comment }}</p>
+              <hr>
+          {% endfor %}
+      {% else %}
+          <p>You haven't left any reviews yet.</p>
+      {% endif %}
   </div>
 
   <!-- POST NEW JOB BUTTON -->

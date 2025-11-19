@@ -57,31 +57,23 @@ class Job(models.Model):
 
 
 class Review(models.Model):
-    """Model for reviews between customers and tradesmen"""
-    job = models.ForeignKey(
-        Job, on_delete=models.CASCADE, related_name='reviews')
-    reviewer = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='reviews_given')
-    reviewed = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='reviews_received')
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='reviews')
+    reviewer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='reviews_given')
+    tradesman = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='reviews_received')
+
     rating = models.PositiveIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)],
-        help_text="Rating from 1 to 5 stars"
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
-    comment = models.TextField(blank=True, help_text="Optional feedback")
+    comment = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        # Ensure one review per job per reviewer
         unique_together = ['job', 'reviewer']
         ordering = ['-created_at']
 
     def __str__(self):
-        return (
-            f"{self.reviewer.user.username} → "
-            f"{self.reviewed.user.username} "
-            f"({self.rating})"
-        )
+        return f"{self.reviewer.user.username} -> {self.tradesman.user.username} ({self.rating})"
+
 
 
 @receiver(post_save, sender=User)

@@ -9,7 +9,7 @@ from .forms import (
     ProfileAvatarForm,
     ProfileForm,
 )
-from .models import Job
+from .models import Job, Review
 
 # ============================
 # AUTHENTICATION VIEWS
@@ -58,65 +58,31 @@ def logout_view(request):
 
 @login_required
 def dashboard(request):
-    profile = getattr(request.user, 'profile', None)
+    profile = request.user.profile
 
-    # ACTIVE (not deleted)
-    active_jobs_qs = Job.objects.filter(
-        created_by=request.user,
-        is_active=True,
-        is_deleted=False
-    )
+    # Jobs
+    active_jobs = Job.objects.filter(created_by=request.user, is_active=True)
+    completed_jobs = Job.objects.filter(created_by=request.user, is_active=False, is_deleted=False)
+    deleted_jobs = Job.objects.filter(created_by=request.user, is_deleted=True)
 
-    # COMPLETED (not deleted)
-    completed_jobs_qs = Job.objects.filter(
-        created_by=request.user,
-        is_active=False,
-        is_deleted=False
-    )
-
-    # DELETED
-    deleted_jobs_qs = Job.objects.filter(
-        created_by=request.user,
-        is_deleted=True
-    )
+    # REVIEWS
+    received_reviews = Review.objects.filter(tradesman=profile)
+    customer_reviews = Review.objects.filter(reviewer=profile)
 
     context = {
-        'profile': profile,
-        'active_jobs': active_jobs_qs.count(),
-        'completed_jobs': completed_jobs_qs.count(),
-        'active_jobs_list': active_jobs_qs,
-        'completed_jobs_list': completed_jobs_qs,
-        'deleted_jobs_list': deleted_jobs_qs,
+        "profile": profile,
+        "active_jobs": active_jobs,
+        "completed_jobs": completed_jobs,
+        "deleted_jobs": deleted_jobs,
+        "received_reviews": received_reviews,
+        "customer_reviews": customer_reviews,
     }
 
-    return render(request, 'dashboard.html', context)
-
-
-@login_required
-def dashboard_tradesman(request):
-    profile = request.user.profile
-    form = ProfileAvatarForm(instance=profile)
-
-    active_jobs = profile.user.job_set.filter(status='active').count()
-    completed_jobs = profile.user.job_set.filter(status='completed').count()
-
-    return render(request, 'dashboard_tradesman.html', {
-        'profile': profile,
-        'form': form,
-        'active_jobs': active_jobs,
-        'completed_jobs': completed_jobs,
-    })
-
-
-@login_required
-def dashboard_customer(request):
-    profile = request.user.profile
-    form = ProfileAvatarForm(instance=profile)
-
-    return render(request, 'dashboard_customer.html', {
-        'profile': profile,
-        'form': form,
-    })
+    # Choose template based on role
+    if profile.role == "tradesman":
+        return render(request, "dashboard_tradesman.html", context)
+    else:
+        return render(request, "dashboard_customer.html", context)
 
 
 @login_required
@@ -154,7 +120,7 @@ def delete_job(request, job_id):
 
 
 # ============================
-# JOB VIEWS
+# JOB BOARD VIEWS
 # ============================
 
 
@@ -242,13 +208,53 @@ def upload_avatar(request):
 
 
 @login_required
-def add_review(request):
-    return render(request, 'add_review.html')
+def add_review(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+
+    reviewer_profile = request.user.profile
+
+    # Determine who is being reviewed
+    if reviewer_profile == job.created_by.profile:
+        reviewed_profile = job.assigned_to.profile
+    else:
+        reviewed_profile = job.created_by.profile
+
+    # Prevent double reviewing
+    existing_review = Review.objects.filter(
+        job=job,
+        reviewer=reviewer_profile
+    ).first()
+
+    if existing_review:
+        messages.warning(request, "You have already reviewed this job.")
+        return redirect("dashboard")
+
+    # Handle POST
+    if request.method == "POST":
+        rating = request.POST.get("rating")
+        comment = request.POST.get("comment", "")
+
+        Review.objects.create(
+            job=job,
+            reviewer=reviewer_profile,
+            reviewed=reviewed_profile,
+            rating=rating,
+            comment=comment
+        )
+
+        messages.success(request, "Review submitted successfully!")
+        return redirect("dashboard")
+
+    return render(request, "add_review.html", {
+        "job": job,
+        "reviewed": reviewed_profile
+    })
 
 
 # ============================
 # HOME + ERROR PAGES
 # ============================
+
 
 def home(request):
     return render(request, 'home.html')

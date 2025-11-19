@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
+{% endblock %}
 {% block content %}
+
+
 <!-- PROFILE SECTION -->
 <div class="tradesman-dashboard">
   <img src="{% static 'core/images/default_avatar.png' %}" 
@@ -82,21 +87,23 @@
 </div>
 
 <!-- CUSTOMER REVIEWS -->
-<div class="customer-reviews">
-  <div>
-    <h4>Customer Reviews</h4>
-  </div>
-  <div>
-    {% if reviews %}
-      {% for review in reviews %}
-        <p><strong>{{ review.customer.username }}</strong> – ⭐ {{ review.rating }}/5</p>
-        <p>{{ review.comment }}</p>
+<div class="reviews-section">
+  <h4>Reviews Received</h4>
+
+  {% if received_reviews %}
+      {% for review in received_reviews %}
+          <p>
+            <strong>{{ review.reviewer.user.username }}</strong>
+            ⭐ {{ review.rating }}/5
+          </p>
+          <p>{{ review.comment }}</p>
+          <hr>
       {% endfor %}
-    {% else %}
-      <p class="text-muted">No reviews yet.</p>
-    {% endif %}
-  </div>
+  {% else %}
+      <p>No reviews received yet.</p>
+  {% endif %}
 </div>
+
 
 <!-- ADD JOB BUTTON -->
 <div>
