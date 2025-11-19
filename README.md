@@ -187,5 +187,5 @@ project board link:
 https://github.com/users/Tafari-K/projects/6/views/1
 ## Credits
 ### images
-Tasknest hero image
-https://www.freepik.com/free-photo/full-shot-people-working-as-engineers_41695771.htm#fromView=search&page=1&position=39&uuid=bee739a0-7d39-473c-979f-439ff39629d8&query=tradesman+and+woman
+Tasknestlogo
+https://www.canva.com/design/DAG5LJApSVo/--6PoxtA4Q59KThKgO5x-w/edit?ui=eyJHIjp7IkQiOnsiRCI6eyJBPyI6IkYifX19fQ

@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', function () {
   const roleField = document.getElementById('id_role');
   const tradeOptions = document.getElementById('trade-options');
-
+  if (!roleField || !tradeOptions) return;
+  
   function toggleTradeOptions() {
     if (roleField.value === 'tradesman') {
       tradeOptions.style.display = 'block';
