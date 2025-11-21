@@ -10,39 +10,156 @@
 - [Summary](#summary)
 
 ## Project Overview
-TaskNest is a full-stack web platform that connects customers with local tradesmen. 
-Customers can book services, leave reviews, and find trusted professionals. 
-Tradesmen can create profiles showcasing their skills and qualifications.
+TaskNest is a job-matching platform designed to connect homeowners with skilled tradespeople in a simple, efficient, and trustworthy way. The platform aims to streamline the process of posting jobs, reviewing tradesmen, and managing ongoing work, all within a user-friendly interface.
+### Main Audience
+##### 1. Homeowners / Customers
+Users who need work done in their homes repairs, installations, renovations, or maintenance.
+They expect:
+- A reliable way to find trustworthy tradespeople
+- Clear job statuses
+- Easy navigation and straightforward forms
+- The ability to review and track work
+
+##### 2. Tradesmen / Service Providers
+Users offering skills such as plumbing, carpentry, electrics, painting, and general maintenance.
+They want:
+- A platform to find new work
+- A dashboard to manage jobs
+- A simple job creation and editing system
+- Visibility to potential customers
+### Technology Used
+##### Django (Python Framework)
+- Provides a robust backend with built-in user authentication
+- Excellent for creating multi-role systems (customer vs tradesman)
+- Offers secure handling of data, forms, and models
+- Ensures rapid development with reusable components (templates, models, forms)
+
+##### HTML, CSS, JavaScript
+- Core technologies for clean, accessible UI development
+- You maintain control over layout, styling, and responsiveness
+- JavaScript enables dynamic elements such as dropdown logic, filtering, and job interaction
+
+##### Bootstrap / Custom CSS
+- Ensures fast, mobile-first responsive design
+- Helps layout grids (like the 4×4 job cards) easily
+- Reduces development time with pre-built components
+
+##### SQLite / Postgres
+- Ideal for structured data such as job listings, users, reviews, and dashboards
+- Reliable and straightforward to integrate with Django ORM
+- Reduces development time with pre-built components
+
+### Accessibility Considerations
+
+TaskNest was built with inclusivity and usability in mind, incorporating:
+
+1. Clear Visual Hierarchy
+- Legible font sizes
+- Strong contrast between text and background
+- Consistent spacing to allow easier scanning
+
+2. Keyboard-Friendly Navigation
+- Forms and menus can be navigated without a mouse
+- Logical tab order
+- Buttons and fields have clear focus indicators
+3. Accessible Labels & ARIA
+- Form fields include descriptive labels
+- Status indicators (active/inactive jobs) are screen-reader compatible
+- Icons include alt-text where needed
+
+4. Responsive Design
+- Fully functional on mobile, tablet, and desktop
+- Ensures users can manage jobs on-the-go
+
+
+
+
+
 
 ## User Stories
-*(Add your user stories here)*
+#### Tradesmen User Stories
+- As a tradesman, I want to create an account so that I can log in securely and manage my listings.
+- As a tradesman, I want to build a profile showcasing my skills, qualifications, and experience so that customers can see my expertise.
+- As a tradesman, I want to post service ads with descriptions, prices, and photos so that potential customers can book my services.
+- As a tradesman, I want to edit or delete my listings so that I can keep my information up to date.
+- As a tradesman, I want to view and manage my booking requests so that I can organise my schedule.
+- As a tradesman, I want to view customer reviews on my services so that I can improve my reputation and performance.
+#### Customer User Stories
+- As a customer, I want to create an account so that I can make bookings and leave reviews.
+- As a customer, I want to browse available tradesmen and filter by skill (e.g., plumber, electrician) so that I can quickly find the right professional.
+- As a customer, I want to view a tradesman’s profile and previous reviews so that I can make an informed decision.
+- As a customer, I want to book a service directly from the tradesman’s page so that I can easily arrange a job.
+- As a customer, I want to leave a review and rating after a job is completed so that I can share my experience.
+- As a customer, I want to edit or delete my own reviews in case I make a mistake.
+- As a customer, I want to view my past bookings and their status so that I can keep track of work I’ve arranged.
+
+
+
+
 
 ## Planning
 - Wireframes
 ## Wireframes
 
-Below are the initial wireframes created for TaskNest.
+Before developing TaskNest, I created wireframes to map out the core layout, navigation paths, and user experience of the site. Each wireframe focused on clarity, ease of use, and aligning with the needs of both customers and tradespeople. Below is an overview of how each wireframe was intended to look, why the layout was chosen, and how the final build evolved with small improvements for usability and accessibility.
 
 ### Home Page
-![Home Page Wireframe](static/wireframes/home-page.png)
+![Home Page Wireframe](staticfiles/wireframes/home-page.png)
+
+#### Initial Vision
+The home page was designed to be clean, welcoming, and easy to understand at a glance.
+It includes:
+-  A large hero placeholder (for logo or imagery)
+-  A clear Sign Up / Log In button
+-  Three informational boxes explaining the platform
+
+#### Why This Layout?
+-  Minimal content means less cognitive load for first-time users
+-  A centred CTA (Sign Up / Log In) encourages immediate engagement
+-  Three columns allow quick scanning of benefits or features
+
+#### Final Adjustments
+- Simplified the copy to make it more readable
+- Ensured the hero area resizes properly on mobile
+- Added spacing and padding to improve accessibility & readability
 
 ### Tradesman Profile Page
-![Profile Page Wireframe](static/wireframes/tradesman-profile.png)
+![Profile Page Wireframe](staticfiles/wireframes/tradesman-profile.png)
+#### Initial Intention
 
-### Booking Page
-![Booking Page Wireframe](static/wireframes/bookings-page.png)
+This page was meant for tradespeople to create or update their professional profile.
+The wireframe included:
+- A list of trade categories (checkboxes)
+- Some categories intentionally disabled
+- A Create Profile button
+
+#### Why This Layout?
+- Checkboxes give quick visual feedback
+- Disabling unavailable categories communicates system constraints
+- The page is intentionally minimal to avoid overwhelming the user
+
+#### Final Adjustments
+- Dynamic form improvements (fields now show/hide depending on occupation)
+- Increased spacing between form elements
+- Added clearer visual focus indicators for keyboard users
+
+
+### Jobsboard Page
+![Jobsboard Page Wireframe](staticfiles/wireframes/bookings-page.png)
+
+
+
 
 ### Login and Register Page
-![Login and Register Page Wireframe](static/wireframes/login-register-page.png)
-
+![Login and Register Page Wireframe](staticfiles/wireframes/login-register-page.png)
 ### Dashboard Page
-![Dashboard Page Wireframe](static/wireframes/dashboard.png)
+![Dashboard Page Wireframe](staticfiles/wireframes/dashboard.png)
 
 ### Ad Listing Page
-![Ad Listing Page Wireframe](static/wireframes/ad-listings-page.png)
+![Ad Listing Page Wireframe](staticfiles/wireframes/ad-listings-page.png)
 
 ### Review Page
-![Review Page Wireframe](/static/wireframes/review-page.png)
+![Review Page Wireframe](staticfiles/wireframes/review-page.png)
 
 - ERD (Data Model)
 
