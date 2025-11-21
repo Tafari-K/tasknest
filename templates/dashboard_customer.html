@@ -6,83 +6,91 @@
 {% endblock %}
 {% block content %}
 <div class="container py-5">
+  <div class="row">
 
-  <!-- PROFILE SECTION -->
-  <div class="customer-dashboard">
-    <img src="{% static 'images/tasknest-logo.png' %}" 
-         alt="Avatar" class="rounded-circle mb-2" width="120" height="120">
-    <h2>{{ profile.user.username }}</h2>
-    <p class="text-muted">Customer Account</p>
-    <a href="{% url 'edit_profile' %}">Edit Profile</a>
-  </div>
+    <aside class="col-md-4">
+      <!-- PROFILE SECTION -->
+      <div class="customer-dashboard">
+        <img src="{% static 'images/tasknest-logo.png' %}" 
+             alt="Avatar" class="rounded-circle mb-2" width="120" height="120">
+        <h2>{{ profile.user.username }}</h2>
+        <p class="text-muted">Customer Account</p>
+        <a href="{% url 'edit_profile' %}">Edit Profile</a>
+      </div>
+    </aside>
 
-  <!-- JOB STATS SECTION -->
-  <div class="job-stats">
-    <h4>Jobs Posted</h4>
-    <p>{{ posted_jobs_count }}</p>
-  </div>
-  <div>
-    <h4>Jobs Completed</h4>
-    <p>{{ completed_jobs_count }}</p>
-  </div>
-  <div>
-    <h4>Pending Jobs</h4>
-    <p>{{ pending_jobs_count }}</p>
-  </div>
+    <main class="col-md-8">
 
-  <!-- JOB MANAGEMENT -->
-  <div class="job-management">
-    <h4>My Job Requests</h4>
-    <div>
-      {% if posted_jobs %}
-        <ul>
-          {% for job in posted_jobs %}
-            <li>
-              <div>
-                <strong>{{ job.title }}</strong> - {{ job.description }}
-                {% if job.is_completed %}
-                  <span>Completed</span>
-                {% else %}
-                  <span>Pending</span>
-                {% endif %}
-              </div>
-              <div>
-                {% if not job.is_completed %}
-                  <a href="{% url 'remove_job' job.id %}">Cancel</a>
-                {% else %}
-                  <a href="{% url 'add_review' job.id %}">Give Review</a>
-                {% endif %}
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p class="text-muted">You haven't posted any jobs yet.</p>
-      {% endif %}
-    </div>
-  </div>
+      <!-- JOB STATS SECTION -->
+      <div class="job-stats">
+        <h4>Jobs Posted</h4>
+        <p>{{ posted_jobs_count }}</p>
+      </div>
+      <div>
+        <h4>Jobs Completed</h4>
+        <p>{{ completed_jobs_count }}</p>
+      </div>
+      <div>
+        <h4>Pending Jobs</h4>
+        <p>{{ pending_jobs_count }}</p>
+      </div>
 
-  <!-- REVIEWS GIVEN -->
-  <div class="reviews-section">
-    <h4>Reviews You Gave</h4>
+      <!-- JOB MANAGEMENT -->
+      <div class="job-management">
+        <h4>My Job Requests</h4>
+        <div>
+          {% if posted_jobs %}
+            <ul>
+              {% for job in posted_jobs %}
+                <li>
+                  <div>
+                    <strong>{{ job.title }}</strong> - {{ job.description }}
+                    {% if job.is_completed %}
+                      <span>Completed</span>
+                    {% else %}
+                      <span>Pending</span>
+                    {% endif %}
+                  </div>
+                  <div>
+                    {% if not job.is_completed %}
+                      <a href="{% url 'remove_job' job.id %}">Cancel</a>
+                    {% else %}
+                      <a href="{% url 'add_review' job.id %}">Give Review</a>
+                    {% endif %}
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">You haven't posted any jobs yet.</p>
+          {% endif %}
+        </div>
+      </div>
 
-      {% if given_reviews %}
-          {% for review in given_reviews %}
-              <p>
-                  <strong>{{ review.reviewed.user.username }}</strong>
-                  ⭐ {{ review.rating }}/5
-              </p>
-              <p>{{ review.comment }}</p>
-              <hr>
-          {% endfor %}
-      {% else %}
-          <p>You haven't left any reviews yet.</p>
-      {% endif %}
-  </div>
+      <!-- REVIEWS GIVEN -->
+      <div class="reviews-section">
+        <h4>Reviews You Gave</h4>
 
-  <!-- POST NEW JOB BUTTON -->
-  <div class="post-newjob">
-    <a href="{% url 'create_job' %}" class="btn btn-primary">Post a New Job</a>
+          {% if given_reviews %}
+              {% for review in given_reviews %}
+                  <p>
+                      <strong>{{ review.reviewed.user.username }}</strong>
+                      ⭐ {{ review.rating }}/5
+                  </p>
+                  <p>{{ review.comment }}</p>
+                  <hr>
+              {% endfor %}
+          {% else %}
+              <p>You haven't left any reviews yet.</p>
+          {% endif %}
+      </div>
+
+      <!-- POST NEW JOB BUTTON -->
+      <div class="post-newjob">
+        <a href="{% url 'create_job' %}" class="btn btn-primary">Post a New Job</a>
+      </div>
+
+    </main>
   </div>
 </div>
 

@@ -4,6 +4,8 @@
     width: 100%;
 }
 
+/*@import url('style.css');*/
+
 .avatar-section {
     flex: 0 0 260px;
     background: var(--surface);

@@ -2,17 +2,17 @@
 {% load static %}
 
 {% block extra_head %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 <link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
 {% endblock %}
 
 {% block content %}
-<p>DEBUG: CSS LOADED</p>
-<div class="content">
-    <div class="dashboard-container">
+<div class="container py-4">
+    <div class="row">
 
-    <!-- Sidebar -->
-    <div class="avatar-section">
-        <div class="avatar-container">
+        <!-- Sidebar -->
+        <aside class="col-md-4 avatar-section">
+            <div class="avatar-container">
 
         <img src="{% static 'images/tasknest-logo.png' %}" alt="Avatar" class="avatar-img">
 
@@ -31,12 +31,12 @@
             {% elif profile.role == 'customer' %}
             <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
             {% endif %}
-        </ul>
-        </div>
-    </div>
+                </ul>
+            </div>
+        </aside>
 
-    <!-- Main dashboard area -->
-    <main class="dashboard-main">
+        <!-- Main dashboard area -->
+        <main class="col-md-8 dashboard-main">
         <div class="welcome-section">
         <h2>Welcome, {{ user.username }}!</h2>
         <p>You’re logged into your TaskNest dashboard.</p>
@@ -44,7 +44,7 @@
         </div>
 
         <!-- == DASHBOARD STATS SECTION == -->
-        <div class="stats-card">
+        <div class="col-4">
             <h4>Dashboard</h4>
             <ul>
                 <li><strong>Active Jobs:</strong> {{ active_jobs }}</li>
@@ -54,7 +54,7 @@
         </div>
 
         <!-- == ACTIVE JOBS SECTION == -->
-        <div class="thumb-section">
+        <div class="col-4">
             <div class="thumb-header">
                 <h4>Active Jobs</h4>
                 <a href="{% url 'jobs' %}" class="thumb-link">View all</a>
@@ -155,7 +155,7 @@
             {% endif %}
         </div>
 
-    </main>
+        </main>
     </div>
 </div>
 {% endblock %}
