@@ -71,11 +71,6 @@ TaskNest was built with inclusivity and usability in mind, incorporating:
 - Fully functional on mobile, tablet, and desktop
 - Ensures users can manage jobs on-the-go
 
-
-
-
-
-
 ## User Stories
 #### Tradesmen User Stories
 - As a tradesman, I want to create an account so that I can log in securely and manage my listings.
@@ -92,10 +87,6 @@ TaskNest was built with inclusivity and usability in mind, incorporating:
 - As a customer, I want to leave a review and rating after a job is completed so that I can share my experience.
 - As a customer, I want to edit or delete my own reviews in case I make a mistake.
 - As a customer, I want to view my past bookings and their status so that I can keep track of work I’ve arranged.
-
-
-
-
 
 ## Planning
 - Wireframes
@@ -143,25 +134,72 @@ The wireframe included:
 - Increased spacing between form elements
 - Added clearer visual focus indicators for keyboard users
 
-
 ### Jobsboard Page
 ![Jobsboard Page Wireframe](staticfiles/wireframes/bookings-page.png)
+#### Initial Intention
 
+The Jobs Board was planned as a central place where users could browse tradespeople or available jobs.
+The wireframe included:
+- A date selector
+- A search bar
+- Multiple tradesperson cards, each containing:
+      - Name
+      - Review rating
+      - Action button (eg. Book Now)
 
+#### Why This Layout?
+- The grid layout makes scanning many profiles easy
+- Card-based design avoids clutter and separates content cleanly
+- Users can quickly search or filter
 
+#### Final Adjustments
+- Improved card responsiveness on mobile
+- Strengthened borders and spacing for better visual separation
+- Smoothed the search function and layout alignment
 
 ### Login and Register Page
 ![Login and Register Page Wireframe](staticfiles/wireframes/login-register-page.png)
+
+
 ### Dashboard Page
 ![Dashboard Page Wireframe](staticfiles/wireframes/dashboard.png)
+#### Initial Intention
+
+The dashboard was envisioned as a tabbed interface allowing customers or tradespeople to manage their tasks.
+Tabs included:
+- Previous Jobs
+- Upcoming Jobs
+- Favourite Jobs
+
+#### Why This Layout?
+- Tabs keep information organised without overwhelming the user
+- Switching between job categories is fast, intuitive, and reduces page reloads
+- The large content box under the tabs was meant to display detailed job information
+
+#### Final Adjustments
+- More distinct active tab indicators
+- Improved spacing and typography
+- Ensured strong keyboard/tab-navigation compatibility
 
 ### Ad Listing Page
 ![Ad Listing Page Wireframe](staticfiles/wireframes/ad-listings-page.png)
+#### Initial Intention
 
-### Review Page
-![Review Page Wireframe](staticfiles/wireframes/review-page.png)
+The Ads Board was intended as a place where users could interact with individual listings, leave comments, or view job-specific details. The wireframe included:
+- Tradesperson profile card
+- A comment box
+- Job ID input field
+- Submit button
 
-- ERD (Data Model)
+#### Why This Layout?
+- The left panel gives context (who you're dealing with)
+- The right panel focuses on the user action (comment or review)
+- Simple, uncluttered structure that handles one task at a time
+
+#### Final Adjustments
+- Reorganised elements to improve spacing and clarity
+- Updated form labels for accessibility
+- Made the comment box fully responsive across different screen sizes
 
 ## Data Model (ERD)
 
@@ -260,6 +298,7 @@ Future development will focus on improving communication, personalisation, and u
 | django.db.utils.OperationalError: no such column: main_profile.location | Model field (location) was added to the Profile model after the initial migrations | Created and applied new migration to add the location field to the Profile table | Fixed |fix: resolved profile model migration issue and implemented dashboard view |
 | Dashboard page not rendering after login | The dashboard.html template wasn’t located in the correct folder or Django couldn’t find it | Ensured TEMPLATES['DIRS'] points to the correct path and the template exists | fixed | |
 | Styling not displaying| CSS/Bootstrap not yet linked to the templates | Deferred Bootstrap integration to later phase for consistent project structure | Deferred | |
+| Dashboard CSS not rendering on dashboard pages | Dashboard-specific stylesheet was not being applied due to incorrect load order and an earlier invalid `@import` in `style.css`; per-template links were inconsistent | Restored correct load order (`style.css` then `dashboard.css`), removed the invalid `@import` from `style.css`, added the proper `@import` in `dashboard.css` and temporarily included Bootstrap via CDN; updated dashboard templates to use Bootstrap grid to ensure presentable layout | Fixed | `fix: apply bootstrap styling to dashboards to resolve rendering issue.` — Deployed to Heroku; dashboards render correctly |
 |Profile not updating after form submission | Missing instance=profile in form save logic | Added instance binding to form in view | Fixed | feat: implemented profile editing feature with user validation |
 | Users could access edit page without login | Missing @login_required decorator | Added login protection to edit_profile view | Fixed | feat: finish authentication system, update login logic, update appropriate templates and files |
 | Add/Remove Job pages initially not rendering | Missing templates and URL routes | Created add_job.html and updated URLs in main/urls.py | Fixed | feat: implemented add/remove job functionality |
