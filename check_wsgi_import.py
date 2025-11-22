@@ -1,4 +1,5 @@
-import importlib, traceback
+import importlib
+import traceback
 
 try:
     importlib.import_module('tasknest_project.wsgi')
