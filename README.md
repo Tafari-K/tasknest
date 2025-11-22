@@ -313,7 +313,8 @@ Future development will focus on improving communication, personalisation, and u
 | Job thumbnails misaligned on mobile | Dashboard cards didn’t have a defined grid structure, causing overlap or poor spacing. | Implemented `.thumb-grid` using `grid-template-columns` and added responsive media queries for mobile/tablet screens. | ✅ Fixed | Outcome: Dashboard layout now responsive, with properly aligned job cards. |
 Django server failed to start `ModuleNotFoundError: No module named 'whitenoise'` | `whitenoise.middleware.WhtieNoiseMiddleware` was included in `MIDDLEWARE¬ but the Whitenoise package was not installed in the virtual environment | Installed Whitenoise using `pip install whitenoise` |  ✅Fixed |  Added: missing Whitenoise dependency to resolve WSGI load failure; server now start successfully|
 | Customers accessing /add-job/ caused errors | View expected is_tradesman field which doesn’t exist | Added profile-based role check + not authorized landing page | ✅ Fixed | Fix: Added add_job restriction + updated dashboard_customer redirect |
-
+| Issue	Cause	Fix	Status	Commit Message / Outcome
+“Post a Review” button caused template crash `(NoReverseMatch)` on customer dashboard | The add_review URL requires a job_id, but the template did not pass any arguments | Updated template to pass review.job.id inside the loop and properly attach review action to each job | ✅ Fixed  | Add: post review feature to customer dashboard; fixed URL logic by passing job_id into add_review link |
 
 
 ## Testing
