@@ -10,6 +10,17 @@ from .forms import (
     ProfileForm,
 )
 from .models import Job, Review
+from .utils import is_admin
+
+
+@login_required
+def add_job(request):
+    if not is_admin(request.user):
+        if request.user.profile.role != "tradesman":
+            return render(request, "not_authorised.html")
+
+    # continue with normal logic
+
 
 # ============================
 # AUTHENTICATION VIEWS

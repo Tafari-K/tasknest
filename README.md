@@ -315,7 +315,7 @@ Django server failed to start `ModuleNotFoundError: No module named 'whitenoise'
 | Customers accessing /add-job/ caused errors | View expected is_tradesman field which doesn’t exist | Added profile-based role check + not authorized landing page | ✅ Fixed | Fix: Added add_job restriction + updated dashboard_customer redirect |
 | Issue	Cause	Fix	Status	Commit Message / Outcome
 “Post a Review” button caused template crash `(NoReverseMatch)` on customer dashboard | The add_review URL requires a job_id, but the template did not pass any arguments | Updated template to pass review.job.id inside the loop and properly attach review action to each job | ✅ Fixed  | Add: post review feature to customer dashboard; fixed URL logic by passing job_id into add_review link |
-
+|Django admin login crashed with `RelatedObjectDoesNotExist: User has no profile` | Superuser accounts do not automatically generate a Profile object, causing role checks to fail when admin logs in | Added `"admin"` role to `ROLE_CHOICES` and manually created a Profile for the superuser to prevent missing-profile errors | ✅ Fixed | Fix: Added 'admin' role to Profile model and created Profile for superuser to prevent login errors | Fix :admin login error by adding admin role and creating superuser Profile|
 
 ## Testing
 *(To be added later)*

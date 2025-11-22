@@ -7,6 +7,7 @@ from django.dispatch import receiver
 ROLE_CHOICES = [
         ('tradesman', 'Tradesman'),
         ('customer', 'Customer'),
+        ('admin', 'Admin'),
 ]
 
 
