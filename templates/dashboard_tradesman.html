@@ -18,6 +18,8 @@
         <p class="text-muted">{{ profile.role|title }}</p>
 
         <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary">Edit Profile</a>
+        <a href="{% url 'add_job' %}">Add Job</a>
+
 
         <p><strong>Location:</strong> {{ profile.location }}</p>
         <p><strong>Skills:</strong> {{ profile.skills }}</p>

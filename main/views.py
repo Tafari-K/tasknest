@@ -132,17 +132,18 @@ def jobs(request):
 
 @login_required
 def add_job(request):
-    if request.method == 'POST':
-        form = JobForm(request.POST, request.FILES)
-        if form.is_valid():
-            job = form.save(commit=False)
-            job.created_by = request.user
-            job.save()
-            messages.success(request, 'Job added successfully!')
-            return redirect('jobs')
-    else:
-        form = JobForm()
-    return render(request, 'add_job.html', {'form': form})
+    # Check role from Profile model
+    if request.user.profile.role != "tradesman":
+        return render(request, "not_authorised.html")
+
+    form = JobForm(request.POST or None)
+    if form.is_valid():
+        job = form.save(commit=False)
+        job.tradesman = request.user
+        job.save()
+        return redirect("dashboard_tradesman")
+
+    return render(request, "add_job.html", {"form": form})
 
 
 @login_required
