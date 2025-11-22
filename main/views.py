@@ -62,7 +62,11 @@ def dashboard(request):
 
     # Jobs
     active_jobs = Job.objects.filter(created_by=request.user, is_active=True)
-    completed_jobs = Job.objects.filter(created_by=request.user, is_active=False, is_deleted=False)
+    completed_jobs = Job.objects.filter(
+        created_by=request.user,
+        is_active=False,
+        is_deleted=False
+        )
     deleted_jobs = Job.objects.filter(created_by=request.user, is_deleted=True)
 
     # REVIEWS
