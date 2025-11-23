@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+
+    <!-- PAGE TITLE -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Administration Dashboard</h2>
+        <p class="text-muted">Manage users, jobs, and system activity</p>
+    </div>
+
+    <!-- OVERVIEW CARDS -->
+    <div class="row g-4 mb-5">
+
+        <!-- Total Users -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 p-3 text-center h-100">
+                <h4 class="fw-bold">Total Users</h4>
+                <p class="display-6 fw-bold text-primary">{{ total_users }}</p>
+            </div>
+        </div>
+
+        <!-- Total Jobs -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 p-3 text-center h-100">
+                <h4 class="fw-bold">Total Jobs</h4>
+                <p class="display-6 fw-bold text-primary">{{ total_jobs }}</p>
+            </div>
+        </div>
+
+        <!-- Total Reviews -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 p-3 text-center h-100">
+                <h4 class="fw-bold">Total Reviews</h4>
+                <p class="display-6 fw-bold text-primary">{{ total_reviews }}</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- MANAGEMENT SECTIONS -->
+    <div class="row g-4">
+
+        <!-- Manage Users -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 p-4 text-center h-100">
+                <h4 class="fw-bold mb-3">Manage Users</h4>
+                <p class="text-muted">View, edit, deactivate or remove platform users.</p>
+                <a href="{% url 'admin_users' %}" class="btn btn-primary w-100 mt-3">Go to Users</a>
+            </div>
+        </div>
+
+        <!-- Manage Jobs -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 p-4 text-center h-100">
+                <h4 class="fw-bold mb-3">Manage Jobs</h4>
+                <p class="text-muted">Oversee job postings and manage active or completed jobs.</p>
+                <a href="{% url 'admin_jobs' %}" class="btn btn-primary w-100 mt-3">Go to Jobs</a>
+            </div>
+        </div>
+
+        <!-- Moderate Reviews -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 p-4 text-center h-100">
+                <h4 class="fw-bold mb-3">Moderate Reviews</h4>
+                <p class="text-muted">Approve, edit, or remove reviews for quality and fairness.</p>
+                <a href="{% url 'admin_reviews' %}" class="btn btn-primary w-100 mt-3">Go to Reviews</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

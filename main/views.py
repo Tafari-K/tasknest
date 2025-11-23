@@ -12,6 +12,10 @@ from .forms import (
 from .models import Job, Review
 from .utils import is_admin
 
+# ============================
+# ADMINISTRATION VIEWS
+# ============================
+
 
 @login_required
 def add_job(request):
@@ -19,7 +23,43 @@ def add_job(request):
         if request.user.profile.role != "tradesman":
             return render(request, "not_authorised.html")
 
-    # continue with normal logic
+
+@login_required
+def admin_dashboard(request):
+    # Only allow admin
+    if request.user.profile.role != "admin":
+        return render(request, "not_authorised.html")
+
+    context = {
+        "total_users": User.objects.count(),
+        "total_jobs": Job.objects.count(),
+        "total_reviews": Review.objects.count(),
+    }
+    return render(request, "administration.html", context)
+
+
+@login_required
+def admin_users(request):
+    if request.user.profile.role != "admin":
+        return render(request, "not_authorised.html")
+
+    return render(request, "admin_users.html")
+
+
+@login_required
+def admin_jobs(request):
+    if request.user.profile.role != "admin":
+        return render(request, "not_authorised.html")
+
+    return render(request, "admin_jobs.html")
+
+
+@login_required
+def admin_reviews(request):
+    if request.user.profile.role != "admin":
+        return render(request, "not_authorised.html")
+
+    return render(request, "admin_reviews.html")
 
 
 # ============================

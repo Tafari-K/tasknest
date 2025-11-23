@@ -7,6 +7,14 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
 
+    # Administration
+    path('dashboard/admin/', views.admin_dashboard, name='admin_dashboard'),
+    path("dashboard/admin/", views.admin_dashboard, name="admin_dashboard"),
+    path("dashboard/admin/users/", views.admin_users, name="admin_users"),
+    path("dashboard/admin/jobs/", views.admin_jobs, name="admin_jobs"),
+    path("dashboard/admin/reviews/", views.admin_reviews, name="admin_reviews"),
+
+
     # Dashboards
     path('dashboard/', views.dashboard, name='dashboard'),
 
