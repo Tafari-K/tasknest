@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import (
     CustomUserCreationForm,
@@ -111,16 +112,20 @@ def logout_view(request):
 def dashboard(request):
     profile = request.user.profile
 
+    # Redirect admin to admin dashboard
+    if profile.role == "admin":
+        return redirect("admin_dashboard")
+
     # Jobs
     active_jobs = Job.objects.filter(created_by=request.user, is_active=True)
     completed_jobs = Job.objects.filter(
         created_by=request.user,
         is_active=False,
         is_deleted=False
-        )
+    )
     deleted_jobs = Job.objects.filter(created_by=request.user, is_deleted=True)
 
-    # REVIEWS
+    # Reviews
     received_reviews = Review.objects.filter(tradesman=profile)
     customer_reviews = Review.objects.filter(reviewer=profile)
 
@@ -133,7 +138,6 @@ def dashboard(request):
         "customer_reviews": customer_reviews,
     }
 
-    # Choose template based on role
     if profile.role == "tradesman":
         return render(request, "dashboard_tradesman.html", context)
     else:
