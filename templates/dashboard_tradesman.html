@@ -59,7 +59,7 @@
             <strong>{{ job.title }}</strong> - {{ job.description }}
           </div>
           <div>
-            <a href="{% url 'mark_job_complete' job.id %}">Mark Complete</a>
+            <a href="{% url 'complete_job' job.id %}">Mark Complete</a>
             <a href="{% url 'remove_job' job.id %}">Remove</a>
           </div>
         </li>

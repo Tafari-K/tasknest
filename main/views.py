@@ -273,11 +273,7 @@ def add_review(request, job_id):
 
     reviewer_profile = request.user.profile
 
-    # Determine who is being reviewed
-    if reviewer_profile == job.created_by.profile:
-        reviewed_profile = job.assigned_to.profile
-    else:
-        reviewed_profile = job.created_by.profile
+    reviewed_profile = job.created_by.profile
 
     # Prevent double reviewing
     existing_review = Review.objects.filter(
