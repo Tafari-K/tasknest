@@ -1,101 +1,97 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extra_head %}
-<link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
-{% endblock %}
-
 {% block content %}
-<div class="container py-5">
-  <div class="row">
 
-    <!-- SIDEBAR -->
-    <aside class="col-md-4">
-      <div class="customer-dashboard">
-        <img src="{% static 'images/tasknest-logo.png' %}" alt="Avatar" class="rounded-circle mb-2" width="120" height="120">
-        <h2>{{ profile.user.username }}</h2>
-        <p class="text-muted">Customer Account</p>
+<!-- PROFILE SECTION -->
+<div class="tradesman-dashboard">
+  <img src="{% static 'core/images/default_avatar.png' %}" 
+       alt="Avatar" class="rounded-circle mb-2" width="120" height="120">
 
-        <a href="{% url 'edit_profile' %}">Edit Profile</a><br>
-        <a href="{% url 'add_job' %}">Add Job</a>
-      </div>
-    </aside>
+  <h2>{{ profile.user.username }}</h2>
+  <p class="text-muted">{{ profile.role|title }}</p>
 
-    <main class="col-md-8">
+  <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary">Edit Profile</a>
 
-      <!-- JOB STATS -->
-      <div class="job-stats">
-        <h4>Jobs Posted</h4>
-        <p>{{ active_jobs.count }}</p>
-      </div>
+  <p><strong>Location:</strong> {{ profile.location }}</p>
+  <p><strong>Skills:</strong> {{ profile.skills }}</p>
+  <p><strong>Jobs Completed:</strong> {{ profile.jobs_completed }}</p>
+</div>
 
-      <div>
-        <h4>Jobs Completed</h4>
-        <p>{{ completed_jobs.count }}</p>
-      </div>
-
-      <div>
-        <h4>Pending Jobs</h4>
-        <p>{{ active_jobs.count }}</p>
-      </div>
-
-      <!-- JOB MANAGEMENT -->
-      <div class="job-management">
-        <h4>My Job Requests</h4>
-
-        {% if active_jobs %}
-          <ul>
-            {% for job in active_jobs %}
-              <li>
-                <div>
-                  <strong>{{ job.title }}</strong> - {{ job.description }}
-                  {% if not job.is_active %}
-                    <span>Completed</span>
-                  {% else %}
-                    <span>Pending</span>
-                  {% endif %}
-                </div>
-
-                <div>
-                  {% if job.is_active %}
-                    <a href="{% url 'remove_job' job.id %}">Cancel</a>
-                  {% else %}
-                    <a href="{% url 'add_review' job.id %}">Give Review</a>
-                  {% endif %}
-                </div>
-
-              </li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          <p class="text-muted">You haven't posted any jobs yet.</p>
-        {% endif %}
-      </div>
-
-      <!-- REVIEWS GIVEN -->
-      <div class="reviews-section">
-        <h4>Reviews You Gave</h4>
-
-        {% if customer_reviews %}
-          {% for review in customer_reviews %}
-            <div class="review-item">
-              <p><strong>{{ review.reviewed.user.username }}</strong></p>
-              <p>⭐ {{ review.rating }}/5</p>
-              <p>{{ review.comment }}</p>
-
-              <a href="{% url 'add_review' review.job.id %}" class="btn btn-primary mb-3">
-                Post a Review
-              </a>
-
-              <hr>
-            </div>
-          {% endfor %}
-        {% else %}
-          <p>You haven't left any reviews yet.</p>
-        {% endif %}
-      </div>
-
-    </main>
+<!-- JOB STATS SECTION -->
+<div class="job-stats">
+  <div>
+    <h4>Active Jobs</h4>
+    <p class="fw-bold fs-4 text-warning">{{ active_jobs.count }}</p>
+  </div>
+  <div>
+    <h4>Completed Jobs</h4>
+    <p class="fw-bold fs-4 text-success">{{ completed_jobs.count }}</p>
+  </div>
+  <div>
+    <h4>Pending Reviews</h4>
+    <p class="fw-bold fs-4 text-muted">{{ received_reviews.count }}</p>
   </div>
 </div>
+
+<!-- ACTIVE JOBS -->
+<div class="job-management">
+  <h4>Jobs In Progress</h4>
+
+  {% if active_jobs %}
+    <ul>
+      {% for job in active_jobs %}
+        <li>
+          <div>
+            <strong>{{ job.title }}</strong> – {{ job.description }}
+          </div>
+          <div>
+            <a href="{% url 'complete_job' job.id %}">Mark Complete</a>
+            <a href="{% url 'remove_job' job.id %}">Remove</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No active jobs right now.</p>
+  {% endif %}
+</div>
+
+<!-- COMPLETED JOBS -->
+<div class="completed-jobs">
+  <h4>Completed Jobs</h4>
+
+  {% if completed_jobs %}
+    <ul>
+      {% for job in completed_jobs %}
+        <li>
+          <strong>{{ job.title }}</strong> – {{ job.description }}
+          <span class="badge bg-success">Completed</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No completed jobs yet.</p>
+  {% endif %}
+</div>
+
+<!-- CUSTOMER REVIEWS -->
+<div class="customer-reviews">
+  <h4>Customer Reviews</h4>
+
+  {% if received_reviews %}
+    {% for review in received_reviews %}
+      <p><strong>{{ review.reviewer.user.username }}</strong> – ⭐ {{ review.rating }}/5</p>
+      <p>{{ review.comment }}</p>
+    {% endfor %}
+  {% else %}
+    <p class="text-muted">No reviews yet.</p>
+  {% endif %}
+</div>
+
+<!-- ADD JOB BUTTON -->
+<div>
+  <a href="{% url 'add_job' %}" class="btn btn-primary">Add New Job</a>
+</div>
+
 {% endblock %}
