@@ -4,9 +4,13 @@
 - [User Stories](#user-stories)
 - [Planning](#planning)
 - [Wireframes](#wireframes)
+- [Figma Wireframes](#figma-wireframes-link)
 - [Data Model (ERD)](#data-model-erd)
 - [Project Development Board](#project-development-board)
 - [Features](#features)
+- [Screenshots](#screenshots)
+- [Testing](#testing)
+- [Deployment](#deployment)
 - [Summary](#summary)
 
 ## Project Overview
@@ -89,10 +93,16 @@ TaskNest was built with inclusivity and usability in mind, incorporating:
 - As a customer, I want to view my past bookings and their status so that I can keep track of work I’ve arranged.
 
 ## Planning
-- Wireframes
-## Wireframes
+
+### Wireframes
 
 Before developing TaskNest, I created wireframes to map out the core layout, navigation paths, and user experience of the site. Each wireframe focused on clarity, ease of use, and aligning with the needs of both customers and tradespeople. Below is an overview of how each wireframe was intended to look, why the layout was chosen, and how the final build evolved with small improvements for usability and accessibility.
+
+### Figma Wireframes link: 
+When you access this link in the top right corner press 'play' to view the full prototype of the site.
+Some buttons are funtional to navigate between pages, or the arrows on the sides to go to the next/previous page.
+
+   [https://www.figma.com/design/sznh0OENMUmqFdh9QrcXjU/TaskNest?node-id=10-441&t=QDgYQo4mlSiZJHJg-1]
 
 ### Home Page
 ![Home Page Wireframe](staticfiles/wireframes/home-page.png)
@@ -317,7 +327,12 @@ Django server failed to start `ModuleNotFoundError: No module named 'whitenoise'
 “Post a Review” button caused template crash `(NoReverseMatch)` on customer dashboard | The add_review URL requires a job_id, but the template did not pass any arguments | Updated template to pass review.job.id inside the loop and properly attach review action to each job | ✅ Fixed  | Add: post review feature to customer dashboard; fixed URL logic by passing job_id into add_review link |
 |Django admin login crashed with `RelatedObjectDoesNotExist: User has no profile` | Superuser accounts do not automatically generate a Profile object, causing role checks to fail when admin logs in | Added `"admin"` role to `ROLE_CHOICES` and manually created a Profile for the superuser to prevent missing-profile errors | ✅ Fixed | Fix: Added 'admin' role to Profile model and created Profile for superuser to prevent login errors | Fix :admin login error by adding admin role and creating superuser Profile|
 
+## Screenshots
+*(To be added later)*
+
 ## Testing
+Manual and Automated testing was conducted to ensure the functionality and reliability of TaskNest. Below is a summary of the testing approach:
+
 *(To be added later)*
 
 ## Deployment
