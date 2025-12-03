@@ -1,36 +1,37 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Welcome to TaskNest{% endblock %}
 
 {% block content %}
-<body>
-  <div>
-    <div>
-      <h1>Welcome to TaskNest</h1>
-      <p>Connecting people with trusted tradesmen for every task.</p>
-      <div>
-        <a href="{% url 'signup' %}" class="btn btn-warning me-2">New User</a>
-        <a href="{% url 'login' %}" class="btn btn-outline-light">Log In</a>
-      </div>
-    </div>
-  </div>
 
-<!-- Testimonials -->
-  <section class="testimonials">
+<!-- Hero Section -->
+<div class="hero">
+    <h1>Welcome to TaskNest</h1>
+    <p>Connecting people with trusted tradesmen for every task.</p>
+
+    <div class="hero-buttons">
+        <a href="{% url 'signup' %}" class="btn btn-primary">New User</a>
+        <a href="{% url 'login' %}" class="btn btn-secondary">Log In</a>
+    </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="testimonials">
     <h2>What Our Users Say</h2>
-    <div>
-      <p>“Found a reliable plumber within minutes. Excellent service!”</p>
-      <div class="testimonial-author">— Ryan Wilson</div>
+
+    <div class="testimonial">
+        <p class="quote">“Found a reliable plumber within minutes. Excellent service!”</p>
+        <p class="author">— Ryan Wilson</p>
     </div>
-    <div>
-      <p>“Amazing platform for finding trustworthy electricians.”</p>
-      <div class="testimonial-author">— Marla Gomez</div>
+
+    <div class="testimonial">
+        <p class="quote">“Amazing platform for finding trustworthy electricians.”</p>
+        <p class="author">— Marla Gomez</p>
     </div>
-    <div>
-      <p>“Got a handyman in no time. It’s a lifesaver!”</p>
-      <div class="testimonial-author">— Luke Johns</div>
+
+    <div class="testimonial">
+        <p class="quote">“Got a handyman in no time. It’s a lifesaver!”</p>
+        <p class="author">— Luke Johns</p>
     </div>
-  </section>
-</body>
+</div>
 
 {% endblock %}

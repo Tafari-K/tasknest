@@ -3,95 +3,100 @@
 
 {% block content %}
 
-<!-- PROFILE SECTION -->
-<div class="tradesman-dashboard">
-  <img src="{% static 'core/images/default_avatar.png' %}" 
-       alt="Avatar" class="rounded-circle mb-2" width="120" height="120">
+<div class="dashboard-layout">
 
-  <h2>{{ profile.user.username }}</h2>
-  <p class="text-muted">{{ profile.role|title }}</p>
+    <aside class="profile-card">
+        <img src="{% static 'images/tasknest-logo.png' %}" class="profile-avatar">
 
-  <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary">Edit Profile</a>
+        <h1 class="profile-name">{{ profile.user.username }}</h1>
+        <p class="profile-role">Tradesman</p>
 
-  <p><strong>Location:</strong> {{ profile.location }}</p>
-  <p><strong>Skills:</strong> {{ profile.skills }}</p>
-  <p><strong>Jobs Completed:</strong> {{ profile.jobs_completed }}</p>
-</div>
+        <div class="profile-actions">
+            <a href="{% url 'edit_profile' %}" class="btn btn-secondary">Edit Profile</a>
+            <a href="{% url 'add_job' %}" class="btn btn-primary">Add Job</a>
+        </div>
 
-<!-- JOB STATS SECTION -->
-<div class="job-stats">
-  <div>
-    <h4>Active Jobs</h4>
-    <p class="fw-bold fs-4 text-warning">{{ active_jobs.count }}</p>
-  </div>
-  <div>
-    <h4>Completed Jobs</h4>
-    <p class="fw-bold fs-4 text-success">{{ completed_jobs.count }}</p>
-  </div>
-  <div>
-    <h4>Pending Reviews</h4>
-    <p class="fw-bold fs-4 text-muted">{{ received_reviews.count }}</p>
-  </div>
-</div>
+        <div class="profile-meta">
+            <p><strong>Location:</strong> {{ profile.location }}</p>
+            <p><strong>Skills:</strong> {{ profile.skills }}</p>
+            <p><strong>Jobs Completed:</strong> {{ completed_jobs_count }}</p>
+        </div>
+    </aside>
 
-<!-- ACTIVE JOBS -->
-<div class="job-management">
-  <h4>Jobs In Progress</h4>
+    <main class="dashboard-main">
 
-  {% if active_jobs %}
-    <ul>
-      {% for job in active_jobs %}
-        <li>
-          <div>
-            <strong>{{ job.title }}</strong> – {{ job.description }}
-          </div>
-          <div>
-            <a href="{% url 'complete_job' job.id %}">Mark Complete</a>
-            <a href="{% url 'remove_job' job.id %}">Remove</a>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p class="text-muted">No active jobs right now.</p>
-  {% endif %}
-</div>
+        <!-- STATS -->
+        <div class="stats-row">
+            <div class="stat-pill">
+                <div class="stat-label">Active Jobs</div>
+                <div class="stat-value">{{ active_jobs_count }}</div>
+            </div>
+            <div class="stat-pill">
+                <div class="stat-label">Completed Jobs</div>
+                <div class="stat-value">{{ completed_jobs_count }}</div>
+            </div>
+            <div class="stat-pill">
+                <div class="stat-label">Pending Reviews</div>
+                <div class="stat-value">{{ received_reviews.count }}</div>
+            </div>
+        </div>
 
-<!-- COMPLETED JOBS -->
-<div class="completed-jobs">
-  <h4>Completed Jobs</h4>
+        <!-- JOBS IN PROGRESS -->
+        <section class="section-card">
+            <h2>Jobs In Progress</h2>
 
-  {% if completed_jobs %}
-    <ul>
-      {% for job in completed_jobs %}
-        <li>
-          <strong>{{ job.title }}</strong> – {{ job.description }}
-          <span class="badge bg-success">Completed</span>
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p class="text-muted">No completed jobs yet.</p>
-  {% endif %}
-</div>
+            {% if active_jobs %}
+                {% for job in active_jobs %}
+                    <div class="job-item">
+                        <span class="job-item-title">{{ job.title }}</span> – {{ job.description }}
+                        <div>
+                            <a href="{% url 'complete_job' job.id %}">Mark Complete</a> ·
+                            <a href="{% url 'remove_job' job.id %}">Remove</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No active jobs right now.</p>
+            {% endif %}
+        </section>
 
-<!-- CUSTOMER REVIEWS -->
-<div class="customer-reviews">
-  <h4>Customer Reviews</h4>
+        <!-- COMPLETED JOBS -->
+        <section class="section-card">
+            <h2>Completed Jobs</h2>
 
-  {% if received_reviews %}
-    {% for review in received_reviews %}
-      <p><strong>{{ review.reviewer.user.username }}</strong> – ⭐ {{ review.rating }}/5</p>
-      <p>{{ review.comment }}</p>
-    {% endfor %}
-  {% else %}
-    <p class="text-muted">No reviews yet.</p>
-  {% endif %}
-</div>
+            {% if completed_jobs %}
+                {% for job in completed_jobs %}
+                    <div class="job-item">
+                        <span class="job-item-title">{{ job.title }}</span> – {{ job.description }}
+                        <span class="badge bg-success">Completed</span>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No completed jobs yet.</p>
+            {% endif %}
+        </section>
 
-<!-- ADD JOB BUTTON -->
-<div>
-  <a href="{% url 'add_job' %}" class="btn btn-primary">Add New Job</a>
+        <!-- REVIEWS RECEIVED -->
+        <section class="section-card">
+            <h2>Reviews Received</h2>
+
+            {% if received_reviews %}
+                {% for review in received_reviews %}
+                    <div class="review-item">
+                        <span class="review-author">{{ review.reviewer.user.username }}</span>
+                        <span class="review-rating">★ {{ review.rating }}/5</span>
+                        <p>{{ review.comment }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No reviews received yet.</p>
+            {% endif %}
+        </section>
+
+        <a href="{% url 'add_job' %}" class="btn btn-primary">Add New Job</a>
+
+    </main>
+
 </div>
 
 {% endblock %}
